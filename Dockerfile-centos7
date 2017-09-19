@@ -1,0 +1,14 @@
+FROM         centos:7
+MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
+CMD          bash
+
+# Required system packages
+RUN yum update -y && yum upgrade -y && yum install -y \
+  unzip \
+  build-essential \
+  curl \
+  git \
+  wget \
+  libpcap-devel
+
+RUN yum group install -y "Development Tools"
