@@ -1,0 +1,14 @@
+sudo: required
+language: cpp
+services:
+  - docker
+before_install:
+  - docker pull seladb/ubuntu1604:latest
+  - docker run -itd --name ubuntu1604 seladb/ubuntu1604
+  - docker exec ubuntu1604 git clone http://github.com/seladb/PcapPlusPlus.git
+script:
+  - docker exec -i ubuntu1604 bash -c "cd PcapPlusPlus && ./configure-linux.sh --default"
+  - docker exec -i ubuntu1604 bash -c "cd PcapPlusPlus && make all"
+  - docker exec -i ubuntu1604 bash -c "cd PcapPlusPlus/Tests/Packet++Test && Bin/Packet++Test"
+  - docker exec -i ubuntu1604 bash -c "cd PcapPlusPlus/Tests/Pcap++Test && Bin/Pcap++Test -n"
+
