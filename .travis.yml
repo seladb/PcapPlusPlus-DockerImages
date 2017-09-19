@@ -2,13 +2,21 @@ sudo: required
 language: cpp
 services:
   - docker
+
+matrix:
+  include:
+    - os: linux
+      env:
+        - DOCKER_IMAGE=ubuntu1604
+    - os: linux
+        - DOCKER_IMAGE=centos7
 before_install:
-  - docker pull seladb/ubuntu1604:latest
-  - docker run -itd --name ubuntu1604 seladb/ubuntu1604
-  - docker exec ubuntu1604 git clone http://github.com/seladb/PcapPlusPlus.git
+  - docker pull seladb/$DOCKER_IMAGE:latest
+  - docker run -itd --name $DOCKER_IMAGE seladb/$DOCKER_IMAGE
+  - docker exec $DOCKER_IMAGE git clone http://github.com/seladb/PcapPlusPlus.git
 script:
-  - docker exec -i ubuntu1604 bash -c "cd PcapPlusPlus && ./configure-linux.sh --default"
-  - docker exec -i ubuntu1604 bash -c "cd PcapPlusPlus && make all"
-  - docker exec -i ubuntu1604 bash -c "cd PcapPlusPlus/Tests/Packet++Test && Bin/Packet++Test"
-  - docker exec -i ubuntu1604 bash -c "cd PcapPlusPlus/Tests/Pcap++Test && Bin/Pcap++Test -n"
+  - docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus && ./configure-linux.sh --default"
+  - docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus && make all"
+  - docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus/Tests/Packet++Test && Bin/Packet++Test"
+  - docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus/Tests/Pcap++Test && Bin/Pcap++Test -n"
 
