@@ -9,6 +9,7 @@ matrix:
       env:
         - DOCKER_IMAGE=ubuntu1604
     - os: linux
+      env:
         - DOCKER_IMAGE=centos7
 before_install:
   - docker pull seladb/$DOCKER_IMAGE:latest
