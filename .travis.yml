@@ -11,10 +11,15 @@ matrix:
     - os: linux
       env:
         - DOCKER_IMAGE=centos7
+    - os: linux
+      env:
+        - DOCKER_IMAGE=fedora26
+    
 before_install:
   - git clone http://github.com/seladb/PcapPlusPlus.git
   - docker pull seladb/$DOCKER_IMAGE:latest
   - docker run -itd --name $DOCKER_IMAGE -v $(pwd)/PcapPlusPlus:/PcapPlusPlus seladb/$DOCKER_IMAGE
+
 script:
   - docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus && ./configure-linux.sh --default"
   - docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus && make all"
