@@ -12,14 +12,15 @@ matrix:
       env:
         - DOCKER_IMAGE=centos7
 before_install:
+  - git clone http://github.com/seladb/PcapPlusPlus.git
   - docker pull seladb/$DOCKER_IMAGE:latest
-  - docker run -itd --name $DOCKER_IMAGE seladb/$DOCKER_IMAGE
+  - docker run -itd --name $DOCKER_IMAGE -v $(pwd)/PcapPlusPlus:/PcapPlusPlus seladb/$DOCKER_IMAGE
   - docker exec $DOCKER_IMAGE git clone http://github.com/seladb/PcapPlusPlus.git
 script:
   - docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus && ./configure-linux.sh --default"
   - docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus && make all"
   - docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus/Tests/Packet++Test && Bin/Packet++Test"
   - docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus/Tests/Pcap++Test && Bin/Pcap++Test -n"
-  - docker exec -i $DOCKER_IMAGE bash -c "tar -zcvf pcapplusplus-$DOCKER_IMAGE.tar.gz PcapPlusPlus/Dist"
-  - docker exec -i $DOCKER_IMAGE bash -c "curl --upload-file pcapplusplus-$DOCKER_IMAGE.tar.gz https://transfer.sh/pcapplusplus-$DOCKER_IMAGE.tar.gz"
+  - tar -zcvf pcapplusplus-$DOCKER_IMAGE.tar.gz PcapPlusPlus/Dist
+  - curl --upload-file pcapplusplus-$DOCKER_IMAGE.tar.gz https://transfer.sh/pcapplusplus-$DOCKER_IMAGE.tar.gz
 
