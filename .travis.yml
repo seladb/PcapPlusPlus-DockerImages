@@ -22,5 +22,4 @@ script:
   - docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus/Tests/Pcap++Test && Bin/Pcap++Test -n"
   - tar -zcvf pcapplusplus-$DOCKER_IMAGE.tar.gz PcapPlusPlus/Dist
   - curl --upload-file pcapplusplus-$DOCKER_IMAGE.tar.gz https://transfer.sh/pcapplusplus-$DOCKER_IMAGE.tar.gz
-  - PcapPlusPlus/Dist/examples/PcapSplitter -h
 
