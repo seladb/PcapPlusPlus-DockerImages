@@ -20,4 +20,6 @@ script:
   - docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus && make all"
   - docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus/Tests/Packet++Test && Bin/Packet++Test"
   - docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus/Tests/Pcap++Test && Bin/Pcap++Test -n"
+  - docker exec -i $DOCKER_IMAGE bash -c "tar -zcvf pcapplusplus-$DOCKER_IMAGE.tar.gz PcapPlusPlus/Dist"
+  - docker exec -i $DOCKER_IMAGE bash -c "curl --upload-file pcapplusplus-$DOCKER_IMAGE.tar.gz https://transfer.sh/pcapplusplus-$DOCKER_IMAGE.tar.gz"
 
