@@ -1,0 +1,19 @@
+FROM         ubuntu:16.04
+MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
+CMD          bash
+
+# Required system packages
+RUN apt-get update && apt-get -y install \
+  apt-utils \
+  build-essential \
+  curl \
+  git \
+  tar \
+  wget \
+  xz-utils \
+  libpcap-dev \
+  linux-headers-$(uname -r)
+
+RUN wget http://fast.dpdk.org/rel/dpdk-16.11.1.tar.gz
+RUN tar xvzf dpdk-16.11.1.tar.gz
+RUN cd dpdk-stable-16.11.1 && make config CC=gcc T=x86_64-native-linuxapp-gcc && make CC=gcc
