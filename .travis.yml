@@ -21,6 +21,10 @@ matrix:
       env:
         - DOCKER_IMAGE=ubuntu1604-dpdk1611
         - DPDK_DIR=dpdk-stable-16.11.1
+    - os: linux
+      env:
+        - DOCKER_IMAGE=ubuntu1604-dpdk1702
+        - DPDK_DIR=dpdk-17.02
     
 before_install:
   - git clone http://github.com/seladb/PcapPlusPlus.git
