@@ -14,6 +14,10 @@ matrix:
     - os: linux
       env:
         - DOCKER_IMAGE=fedora26
+    - os: linux
+      env:
+        - DOCKER_IMAGE=ubuntu1604-dpdk1611
+        - DPDK_DIR=dpdk-stable-16.11.1
     
 before_install:
   - git clone http://github.com/seladb/PcapPlusPlus.git
@@ -21,10 +25,14 @@ before_install:
   - docker run -itd --name $DOCKER_IMAGE -v $(pwd)/PcapPlusPlus:/PcapPlusPlus seladb/$DOCKER_IMAGE
 
 script:
-  - docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus && ./configure-linux.sh --default"
+  - if [[ ! -z $DPDK_DIR  ]]; then
+        docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus && ./configure-linux.sh --dpdk --dpdk-home /$DPDK_DIR";
+    else
+        docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus && ./configure-linux.sh --default";
+    fi
   - docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus && make all"
   - docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus/Tests/Packet++Test && Bin/Packet++Test"
-  - docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus/Tests/Pcap++Test && Bin/Pcap++Test -n"
+  - docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus/Tests/Pcap++Test && Bin/Pcap++Test -n -k 0"
   - tar -zcvf pcapplusplus-$DOCKER_IMAGE.tar.gz PcapPlusPlus/Dist
   - curl --upload-file pcapplusplus-$DOCKER_IMAGE.tar.gz https://transfer.sh/pcapplusplus-$DOCKER_IMAGE.tar.gz
 
