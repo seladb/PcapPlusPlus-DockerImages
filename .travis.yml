@@ -25,6 +25,11 @@ matrix:
       env:
         - DOCKER_IMAGE=ubuntu1604-dpdk1702
         - DPDK_DIR=dpdk-17.02
+    - os: linux
+      env:
+        - DOCKER_IMAGE=ubuntu1604-pfring
+        - PF_RING=True
+
     
 before_install:
   - git clone http://github.com/seladb/PcapPlusPlus.git
@@ -34,6 +39,8 @@ before_install:
 script:
   - if [[ ! -z $DPDK_DIR  ]]; then
         docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus && ./configure-linux.sh --dpdk --dpdk-home /$DPDK_DIR";
+    elif [[ ! -z $PF_RING  ]]; then
+        docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus && ./configure-linux.sh --pf-ring --pf-ring-home /PF_RING";
     else
         docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus && ./configure-linux.sh --default";
     fi
