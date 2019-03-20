@@ -1,0 +1,14 @@
+FROM         fedora:29
+MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
+CMD          bash
+
+# Required system packages
+RUN dnf upgrade -y && dnf install -y \
+  unzip \
+  curl \
+  git \
+  wget \
+  libpcap-devel \
+  gcc-c++ \
+  libstdc++-static \
+  && dnf groupinstall -y 'Development Tools'
