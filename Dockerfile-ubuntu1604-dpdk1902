@@ -1,0 +1,22 @@
+FROM         ubuntu:16.04
+MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
+CMD          bash
+
+# Required system packages
+RUN apt-get update && apt-get -y install \
+  apt-utils \
+  build-essential \
+  curl \
+  git \
+  tar \
+  wget \
+  xz-utils \
+  libpcap-dev \
+  libnuma-dev \
+  linux-headers-$(uname -r)
+
+RUN wget http://fast.dpdk.org/rel/dpdk-19.02.tar.gz
+RUN tar xvzf dpdk-19.02.tar.gz
+RUN cd dpdk-19.02 && make config CC=gcc T=x86_64-native-linuxapp-gcc 
+RUN cd dpdk-19.02/build && sed -i 's/CONFIG_RTE_LIBRTE_PMD_PCAP=n/CONFIG_RTE_LIBRTE_PMD_PCAP=y/g' .config
+RUN cd dpdk-19.02 && make CC=gcc
