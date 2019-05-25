@@ -26,7 +26,7 @@ matrix:
     - DOCKER_IMAGE=centos7
   - os: linux
     env:
-    - DOCKER_IMAGE=fedora26
+    - DOCKER_IMAGE=fedora29
   - os: linux
     env:
     - DOCKER_IMAGE=ubuntu1604-dpdk1611
@@ -48,6 +48,6 @@ script:
   - echo "No tests!"
 
 after_success:
-  - docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-  - ./build-${DOCKER_IMAGE}
+  - echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin
+  - ./build-${DOCKER_IMAGE}.sh
   - docker push seladb/${DOCKER_IMAGE}
