@@ -1,5 +1,7 @@
 sudo: required
 
+language: go # can be any language
+
 services:
   - docker
 
@@ -41,6 +43,9 @@ matrix:
     env:
     - DOCKER_IMAGE=ubuntu1604-pfring
     - PF_RING=True
+
+script:
+  - echo "No tests!"
 
 after_success:
   - docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
