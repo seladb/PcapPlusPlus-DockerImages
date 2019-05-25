@@ -45,9 +45,6 @@ matrix:
     - PF_RING=True
 
 script:
-  - echo "No tests!"
-
-after_success:
   - echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin
   - ./build-${DOCKER_IMAGE}.sh
   - docker push seladb/${DOCKER_IMAGE}
