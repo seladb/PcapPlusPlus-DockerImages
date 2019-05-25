@@ -1,59 +1,48 @@
 sudo: required
 language: cpp
 services:
-  - docker
+- docker
+
+env:
+  global:
+  - secure: c7XOxq4KnQWiAhx5k6WqgXL8letoIV6kqEPkPQOKENhJfa/+JaLlwsq0vdy7AlMl+iQC93dOrKS8oJsBhzUinnYVkMW1n9S5ttjsn5nFVnsuG9LMeTeC7KNNFK8EX4Hs7/yLUQWsmZqMIUxR1bRpjcBKAHOqSIXXmebvYAQOZ3AdxIntw0sblVn4LVbpQnBxpsNGSEe+Q5f1Ka1lHO158bMK/DY9PQxk3uoTCHc240QWPcOVceupsdlsWu1Ktn493pn7VhR9IOSNlHJ/auoEfWjUy9GmN86RvrKmfnXLRzn4MEdk+2Omlib0q1ioWLZQ9q9/UwDo4IMfbZDHTG7fp7+qJz1WeSycYhM/lxQD+9BK99gCC67R+WljjxCdxOKGz2kCPskU/fbSK2vkCyYtKCQgZ1E7vKIBSlWVmMJnts1JueAkcQ/hvI030/RmmhbazQ+bnKgvB0EP4go7bv/isunO5Kb7S/+erA+gW+O+x3j9tmI8fHZsqqQopI/3lfyyj9Dcs4y8SGb45syW2HQ4CGQpDiLLHRHbalfoDYXja+ZvH2/fvt6tKkdo2plmEDAub20gX/+0TJ/pMQKDEJQETmPfuxoeX2bq7bKMzpjsl9N4Dv5UDc4uGvFfpOr72fUOuyq2z860C75yRq0U8whPSuC59/FhLGy8pziNiZ7vuAI= # DOCKER_USER
+  - secure: kosIjT8SfqJJYufRgpemP3DEAVEyzbvhvQZtMZuk35SLllz+cYt5BFtT16Ue+jGDumHMZhZJbn88ObPx4TisHuLn0Ui7j3N03voyi2mx7TVUzHlHiAlVc6u+7hV2Jp97eJ1GqByJtxAelL1ZzcBmRp8mSBQuLAjX8EMp3pvl4n5KR3WCwEezqk6679JPMWmhiNvN160acEqkFXDbnZ8IsgkhCdbniiJ4jbfK/+IDeeeCzS373NssEPzRqBAZs4O8QFlJBD9RUkwhr3Lfqx4/u0FgEJriaTdF5fYxK/uECjdlLHX5cd+OVbVhZLDPzvp0KmJMarC+SQee61WDMsaCCX9H2+MpK7Ak/FMQOZPslBBYsS61KTvCkIhJB4GRERyeNpfe2NVORk0JIkHbigaBxPcU3ylmcopyek+Uos+e1fKWdplZn5YjdyQgMc0/kutzKw2DqljxBfZdPqfjHZOXlWroD0c6PLTZT+RlOcIfvs6HkZOSpuRserfYBOoa/4hNGWtXVbJGj5n3LJcGRshjGVNWr3x9z0wuYhd/YJtLUvIyuXPUtFdPIMAZDMpWYULOb4aY0ZMTmof0RP5LLxBTGojTKKPTmpdoy0wQaLUOwhkfiNX9HUF/eTIOLZiI8M19xP6j4NWcZnCwdFj+fkkTQggMOz17FjUCuSUWwSTbxyQ= # DOCKER_PASS
 
 matrix:
   include:
-    - os: linux
-      env:
-        - DOCKER_IMAGE=ubuntu1404
-    - os: linux
-      env:
-        - DOCKER_IMAGE=ubuntu1604
-    - os: linux
-      env:
-        - DOCKER_IMAGE=ubuntu1804
-    - os: linux
-      env:
-        - DOCKER_IMAGE=centos7
-    - os: linux
-      env:
-        - DOCKER_IMAGE=fedora26
-    - os: linux
-      env:
-        - DOCKER_IMAGE=ubuntu1604-dpdk1611
-        - DPDK_DIR=dpdk-stable-16.11.6
-    - os: linux
-      env:
-        - DOCKER_IMAGE=ubuntu1604-dpdk1711
-        - DPDK_DIR=dpdk-stable-17.11.2
-    - os: linux
-      env:
-        - DOCKER_IMAGE=ubuntu1604-dpdk1802
-        - DPDK_DIR=dpdk-stable-18.02.1
-    - os: linux
-      env:
-        - DOCKER_IMAGE=ubuntu1604-pfring
-        - PF_RING=True
+  - os: linux
+    env:
+    - DOCKER_IMAGE=ubuntu1404
+  - os: linux
+    env:
+    - DOCKER_IMAGE=ubuntu1604
+  - os: linux
+    env:
+    - DOCKER_IMAGE=ubuntu1804
+  - os: linux
+    env:
+    - DOCKER_IMAGE=centos7
+  - os: linux
+    env:
+    - DOCKER_IMAGE=fedora26
+  - os: linux
+    env:
+    - DOCKER_IMAGE=ubuntu1604-dpdk1611
+    - DPDK_DIR=dpdk-stable-16.11.6
+  - os: linux
+    env:
+    - DOCKER_IMAGE=ubuntu1604-dpdk1711
+    - DPDK_DIR=dpdk-stable-17.11.2
+  - os: linux
+    env:
+    - DOCKER_IMAGE=ubuntu1604-dpdk1802
+    - DPDK_DIR=dpdk-stable-18.02.1
+  - os: linux
+    env:
+    - DOCKER_IMAGE=ubuntu1604-pfring
+    - PF_RING=True
 
-    
-before_install:
-  - git clone http://github.com/seladb/PcapPlusPlus.git
-  - docker pull seladb/$DOCKER_IMAGE:latest
-  - docker run -itd --name $DOCKER_IMAGE -v $(pwd)/PcapPlusPlus:/PcapPlusPlus seladb/$DOCKER_IMAGE
-
-script:
-  - if [[ ! -z $DPDK_DIR  ]]; then
-        docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus && ./configure-linux.sh --dpdk --dpdk-home /$DPDK_DIR";
-    elif [[ ! -z $PF_RING  ]]; then
-        docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus && ./configure-linux.sh --pf-ring --pf-ring-home /PF_RING";
-    else
-        docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus && ./configure-linux.sh --default";
-    fi
-  - docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus && make all"
-  - docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus/Tests/Packet++Test && Bin/Packet++Test"
-  - docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus/Tests/Pcap++Test && Bin/Pcap++Test -n -k 0"
-  - tar -zcvf pcapplusplus-$DOCKER_IMAGE.tar.gz PcapPlusPlus/Dist
-  - curl --upload-file pcapplusplus-$DOCKER_IMAGE.tar.gz https://transfer.sh/pcapplusplus-$DOCKER_IMAGE.tar.gz
-
+after_success:
+  - docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+  - ./build-${DOCKER_IMAGE}
+  - docker push seladb/${DOCKER_IMAGE}
