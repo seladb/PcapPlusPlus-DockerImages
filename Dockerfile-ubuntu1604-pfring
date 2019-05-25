@@ -14,6 +14,7 @@ RUN apt-get update && apt-get -y install \
   libpcap-dev \
   cmake \
   linux-headers-$(uname -r) \
+  bison \
   flex \
   byacc \
   libnuma-dev
