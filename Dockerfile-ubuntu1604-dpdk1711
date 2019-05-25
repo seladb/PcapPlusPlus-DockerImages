@@ -16,8 +16,8 @@ RUN apt-get update && apt-get -y install \
   cmake \
   linux-headers-$(uname -r)
 
-RUN wget http://fast.dpdk.org/rel/dpdk-17.11.2.tar.gz
-RUN tar xvzf dpdk-17.11.2.tar.gz
-RUN cd dpdk-stable-17.11.2 && make config CC=gcc T=x86_64-native-linuxapp-gcc
-RUN cd dpdk-stable-17.11.2/build && sed -i 's/CONFIG_RTE_LIBRTE_PMD_PCAP=n/CONFIG_RTE_LIBRTE_PMD_PCAP=y/g' .config
-RUN cd dpdk-stable-17.11.2 && make CC=gcc
+RUN wget http://fast.dpdk.org/rel/dpdk-17.11.6.tar.gz
+RUN tar xvzf dpdk-17.11.6.tar.gz
+RUN cd dpdk-stable-17.11.6 && make config CC=gcc T=x86_64-native-linuxapp-gcc
+RUN cd dpdk-stable-17.11.6/build && sed -i 's/CONFIG_RTE_LIBRTE_PMD_PCAP=n/CONFIG_RTE_LIBRTE_PMD_PCAP=y/g' .config
+RUN cd dpdk-stable-17.11.6 && make CC=gcc
