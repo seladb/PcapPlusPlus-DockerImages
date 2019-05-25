@@ -11,4 +11,5 @@ RUN apt-get update && apt-get -y install \
   tar \
   wget \
   xz-utils \
-  libpcap-dev
+  libpcap-dev \
+  cmake
