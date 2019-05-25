@@ -12,6 +12,7 @@ RUN apt-get update && apt-get -y install \
   wget \
   xz-utils \
   libpcap-dev \
+  cmake \
   linux-headers-$(uname -r) \
   flex \
   byacc \

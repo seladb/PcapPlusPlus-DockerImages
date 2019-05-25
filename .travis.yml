@@ -14,35 +14,40 @@ matrix:
   include:
   - os: linux
     env:
-    - DOCKER_IMAGE=ubuntu1404
+      - DOCKER_IMAGE=ubuntu1404
   - os: linux
     env:
-    - DOCKER_IMAGE=ubuntu1604
+      - DOCKER_IMAGE=ubuntu1604
   - os: linux
     env:
-    - DOCKER_IMAGE=ubuntu1804
+      - DOCKER_IMAGE=ubuntu1804
   - os: linux
     env:
-    - DOCKER_IMAGE=centos7
+      - DOCKER_IMAGE=centos7
   - os: linux
     env:
-    - DOCKER_IMAGE=fedora29
+      - DOCKER_IMAGE=fedora26
   - os: linux
     env:
-    - DOCKER_IMAGE=ubuntu1604-dpdk1611
-    - DPDK_DIR=dpdk-stable-16.11.6
+      - DOCKER_IMAGE=fedora29
   - os: linux
     env:
-    - DOCKER_IMAGE=ubuntu1604-dpdk1711
-    - DPDK_DIR=dpdk-stable-17.11.2
+      - DOCKER_IMAGE=ubuntu1604-dpdk1611
   - os: linux
     env:
-    - DOCKER_IMAGE=ubuntu1604-dpdk1802
-    - DPDK_DIR=dpdk-stable-18.02.1
+      - DOCKER_IMAGE=ubuntu1604-dpdk1711
   - os: linux
     env:
-    - DOCKER_IMAGE=ubuntu1604-pfring
-    - PF_RING=True
+      - DOCKER_IMAGE=ubuntu1604-dpdk1802
+  - os: linux
+    env:
+      - DOCKER_IMAGE=ubuntu1604-dpdk1811
+  - os: linux
+    env:
+      - DOCKER_IMAGE=ubuntu1604-dpdk1902
+  - os: linux
+    env:
+      - DOCKER_IMAGE=ubuntu1604-pfring
 
 script:
   - echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin

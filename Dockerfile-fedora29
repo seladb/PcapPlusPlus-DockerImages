@@ -9,6 +9,7 @@ RUN dnf upgrade -y && dnf install -y \
   git \
   wget \
   libpcap-devel \
+  cmake \
   gcc-c++ \
   libstdc++-static \
   && dnf groupinstall -y 'Development Tools'

@@ -12,6 +12,7 @@ RUN apt-get update && apt-get -y install \
   wget \
   xz-utils \
   libpcap-dev \
+  cmake \
   linux-headers-$(uname -r)
 
 RUN wget http://fast.dpdk.org/rel/dpdk-16.11.6.tar.gz

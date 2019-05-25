@@ -9,7 +9,8 @@ RUN yum update -y && yum upgrade -y && yum install -y \
   curl \
   git \
   wget \
-  libpcap-devel
+  libpcap-devel \
+  cmake
 
 RUN yum group install -y "Development Tools"
 RUN yum install -y libstdc++-static
