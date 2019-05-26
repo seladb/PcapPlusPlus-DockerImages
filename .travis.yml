@@ -51,5 +51,6 @@ matrix:
 
 script:
   - echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin
-  - ./build-${DOCKER_IMAGE}.sh
+  - docker build -f Dockerfile-${DOCKER_IMAGE} -t ${DOCKER_IMAGE} .
+  - docker tag ${DOCKER_IMAGE} seladb/${DOCKER_IMAGE}
   - docker push seladb/${DOCKER_IMAGE}
