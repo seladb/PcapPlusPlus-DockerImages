@@ -47,6 +47,9 @@ matrix:
       - DOCKER_IMAGE=ubuntu1604-dpdk1902
   - os: linux
     env:
+      - DOCKER_IMAGE=ubuntu1604-dpdk1908
+  - os: linux
+    env:
       - DOCKER_IMAGE=ubuntu1604-pfring
 
 script:
