@@ -51,9 +51,6 @@ matrix:
   - os: linux
     env:
       - DOCKER_IMAGE=ubuntu1604-pfring
-  - os: linux
-    env:
-      - DOCKER_IMAGE=doxygen
 
 script:
   - echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin
