@@ -1,5 +1,0 @@
-FROM         ubuntu:18.04
-MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
-CMD          bash
-
-RUN apt-get update && apt-get install -y doxygen

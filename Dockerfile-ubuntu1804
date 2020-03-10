@@ -12,4 +12,5 @@ RUN apt-get update && apt-get -y install \
   wget \
   xz-utils \
   libpcap-dev \
-  cmake
+  cmake \
+  doxygen

@@ -19,7 +19,6 @@ Docker image inventory:
 - Ubuntu 16.04 with DPDK 19.02
 - Ubuntu 16.04 with DPDK 19.08
 - Ubuntu 16.04 with latest version of PF_RING
-- Ubuntu 18.04 with latest version of Doxygen
 
 Travis-CI is used for building the docker images automatically and push them to Docker Hub.
 
