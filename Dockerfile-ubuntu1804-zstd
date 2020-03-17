@@ -16,9 +16,6 @@ RUN apt-get update && apt-get -y install \
   doxygen
 
 # Install Zstd
-RUN ZSTD_VERSION=1.4.4
-RUN ZSTD_PACKAGE_NAME=zstd-${ZSTD_VERSION}
-RUN ZSTD_PACKAGE_FILE=${ZSTD_PACKAGE_NAME}.tar.gz
-RUN wget https://github.com/facebook/zstd/releases/download/v${ZSTD_VERSION}/${ZSTD_PACKAGE_FILE}
-RUN tar xvzf ${ZSTD_PACKAGE_FILE}
-RUN cd ${ZSTD_PACKAGE_NAME} && make install
+RUN wget https://github.com/facebook/zstd/releases/download/v1.4.4/zstd-1.4.4.tar.gz
+RUN tar xvzf zstd-1.4.4.tar.gz
+RUN cd zstd-1.4.4 && make install
