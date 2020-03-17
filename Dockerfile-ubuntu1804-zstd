@@ -20,4 +20,3 @@ RUN wget https://github.com/facebook/zstd/releases/download/v1.4.4/zstd-1.4.4.ta
 RUN tar xvzf zstd-1.4.4.tar.gz
 RUN cd zstd-1.4.4 && make install
 RUN echo "/usr/local/lib" >> /etc/ld.so.conf
-RUN ldconfig | grep zstd
