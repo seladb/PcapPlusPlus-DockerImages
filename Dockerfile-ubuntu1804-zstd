@@ -1,0 +1,24 @@
+FROM         ubuntu:18.04
+MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
+CMD          bash
+
+# Required system packages
+RUN apt-get update && apt-get -y install \
+  apt-utils \
+  build-essential \
+  curl \
+  git \
+  tar \
+  wget \
+  xz-utils \
+  libpcap-dev \
+  cmake \
+  doxygen
+
+# Install Zstd
+RUN ZSTD_VERSION=1.4.4
+RUN ZSTD_PACKAGE_NAME=zstd-${ZSTD_VERSION}
+RUN ZSTD_PACKAGE_FILE=${ZSTD_PACKAGE_NAME}.tar.gz
+RUN wget https://github.com/facebook/zstd/releases/download/v${ZSTD_VERSION}/${ZSTD_PACKAGE_FILE}
+RUN tar xvzf ${ZSTD_PACKAGE_FILE}
+RUN cd ${ZSTD_PACKAGE_NAME} && make install
