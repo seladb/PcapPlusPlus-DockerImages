@@ -13,4 +13,8 @@ RUN apt-get update && apt-get -y install \
   xz-utils \
   libpcap-dev \
   cmake \
-  doxygen
+  doxygen \
+  clang-9
+
+RUN ln -s /usr/bin/clang-9 /usr/bin/clang
+RUN ln -s /usr/bin/clang++-9 /usr/bin/clang++
