@@ -13,3 +13,6 @@ RUN dnf upgrade -y && dnf install -y \
   gcc-c++ \
   libstdc++-static \
   && dnf groupinstall -y 'Development Tools'
+
+# Install pytest
+RUN python3 pip install pytest
