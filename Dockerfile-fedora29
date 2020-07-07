@@ -15,4 +15,4 @@ RUN dnf upgrade -y && dnf install -y \
   && dnf groupinstall -y 'Development Tools'
 
 # Install pytest
-RUN python3 pip install pytest
+RUN python3 -m pip install pytest
