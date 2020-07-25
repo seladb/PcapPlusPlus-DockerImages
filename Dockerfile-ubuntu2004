@@ -26,4 +26,4 @@ RUN ln -s /usr/bin/clang-9 /usr/bin/clang
 RUN ln -s /usr/bin/clang++-9 /usr/bin/clang++
 
 # Update python3 pip
-python3 -m pip install --upgrade pip setuptools wheel
+RUN python3 -m pip install --upgrade pip setuptools wheel
