@@ -19,7 +19,11 @@ RUN apt-get update && apt-get -y install \
   cmake \
   doxygen \
   clang-9 \
-  software-properties-common
+  software-properties-common \
+  python3-pip
 
 RUN ln -s /usr/bin/clang-9 /usr/bin/clang
 RUN ln -s /usr/bin/clang++-9 /usr/bin/clang++
+
+# Update python3 pip
+python3 -m pip install --upgrade pip setuptools wheel
