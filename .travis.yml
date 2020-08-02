@@ -60,7 +60,7 @@ matrix:
 
 
 script:
-  - if [ -z $BUILD-IMAGE ]; then echo Skip building image; travis_terminate 0; fi
+  - if [ -z $BUILD_DOCKER_IMAGE ]; then echo Skip building image; travis_terminate 0; else echo Building image; fi
   - echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin
   - docker build -f Dockerfile-${DOCKER_IMAGE} -t ${DOCKER_IMAGE} .
   - docker tag ${DOCKER_IMAGE} seladb/${DOCKER_IMAGE}
