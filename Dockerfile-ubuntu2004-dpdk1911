@@ -1,6 +1,10 @@
-FROM         ubuntu:16.04
+FROM         ubuntu:20.04
 MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
 CMD          bash
+
+# Configure timezone to avoid user input during build
+ENV TZ=US/Pacific
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Required system packages
 RUN apt-get update && apt-get -y install \
@@ -16,9 +20,9 @@ RUN apt-get update && apt-get -y install \
   cmake \
   linux-headers-$(uname -r)
 
-RUN wget http://fast.dpdk.org/rel/dpdk-17.11.9.tar.gz
-RUN tar xvzf dpdk-17.11.9.tar.gz
-RUN mv dpdk-stable-17.11.9 dpdk
-RUN cd dpdk && make config CC=gcc T=x86_64-native-linuxapp-gcc
+RUN wget http://fast.dpdk.org/rel/dpdk-19.11.3.tar.gz
+RUN tar xvzf dpdk-19.11.3.tar.gz
+RUN mv dpdk-stable-19.11.3 dpdk
+RUN cd dpdk && make config CC=gcc T=x86_64-native-linuxapp-gcc 
 RUN cd dpdk/build && sed -i 's/CONFIG_RTE_LIBRTE_PMD_PCAP=n/CONFIG_RTE_LIBRTE_PMD_PCAP=y/g' .config
 RUN cd dpdk && make CC=gcc
