@@ -39,24 +39,22 @@ matrix:
   - os: linux
     env:
       - DOCKER_IMAGE=ubuntu1604-dpdk1711
-      - BUILD_DOCKER_IMAGE=1
   - os: linux
     env:
       - DOCKER_IMAGE=ubuntu1604-dpdk1802
   - os: linux
     env:
       - DOCKER_IMAGE=ubuntu1604-dpdk1811
-      - BUILD_DOCKER_IMAGE=1
   - os: linux
     env:
       - DOCKER_IMAGE=ubuntu1604-dpdk1902
   - os: linux
     env:
       - DOCKER_IMAGE=ubuntu1604-dpdk1908
-      - BUILD_DOCKER_IMAGE=1
   - os: linux
+    dist: bionic
     env:
-      - DOCKER_IMAGE=ubuntu2004-dpdk1911
+      - DOCKER_IMAGE=ubuntu1804-dpdk1911
       - BUILD_DOCKER_IMAGE=1
   - os: linux
     env:
