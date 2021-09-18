@@ -32,12 +32,13 @@ jobs:
   test:
 
     needs: build
+    runs-on: ubuntu-20.04
+    container: 
+      image: seladb/{{ matrix.image }}
     strategy:
       matrix:
         include:
           - image: ubuntu2004
-    container: 
-      image: seladb/{{ matrix.image }}
 
     steps:
     - name: Checkout PcapPlusPlus
