@@ -11,16 +11,10 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
-
-
-
-
-
     strategy:
       matrix:
         include:
-          image: ubuntu2004
+          - image: ubuntu2004
 
     steps:
     - name: Checkout code
