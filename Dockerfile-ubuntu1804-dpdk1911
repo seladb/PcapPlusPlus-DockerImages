@@ -13,8 +13,7 @@ RUN apt-get update && apt-get -y install \
   xz-utils \
   libpcap-dev \
   libnuma-dev \
-  cmake \
-  linux-headers-$(uname -r)
+  cmake
 
 RUN wget http://fast.dpdk.org/rel/dpdk-19.11.10.tar.gz
 RUN tar xvzf dpdk-19.11.10.tar.gz
