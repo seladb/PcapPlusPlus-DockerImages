@@ -22,11 +22,47 @@ jobs:
     
     - name: Build image
       run: |
-        export TAG=$(date +%s)
-        echo "tag=$TAG" >> $GITHUB_ENV
-        docker build . --file Dockerfile-${{ matrix.image }} --tag seladb/${{ matrix.image }}:$TAG --tag eladb/${{ matrix.image }}:latest
+        docker build . --file Dockerfile-${{ matrix.image }} --tag seladb/${{ matrix.image }}:latest
 
     - name: Push to DockerHub
       run: |
         echo ${{ secrets.DOCKER_PASS }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
-        docker push seladb/${{ matrix.image }}:${{ env.tag }}
+        docker push seladb/${{ matrix.image }}:latest
+
+  test:
+
+    needs: build
+    strategy:
+      matrix:
+        include:
+          - image: ubuntu2004
+    container: 
+      image: seladb/{{ matrix.image }}
+
+    steps:
+    - name: Checkout PcapPlusPlus
+      uses: actions/checkout@main
+      with:
+        repository: seladb/PcapPlusPlus
+        path: ./PcapPlusPlus
+
+    - name: Configure PcapPlusPlus
+      working-directory: ./PcapPlusPlus
+      run: |
+        ./configure-linux.sh --default
+  
+    - name: Build PcapPlusPlus
+      working-directory: ./PcapPlusPlus
+      run: make all
+
+    - name: Test Packet++
+      working-directory: ./PcapPlusPlus
+      run: |
+        cd Tests/Packet++
+        Bin/Packet++
+
+    - name: Test Pcap++
+      working-directory: ./PcapPlusPlus
+      run: |
+        cd Tests/Pcap++
+        Bin/Pcap++ -n
