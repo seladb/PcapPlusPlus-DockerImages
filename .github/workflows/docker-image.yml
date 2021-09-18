@@ -12,7 +12,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      TAG=$(date +%s)
+      TAG: $(date +%s)
     strategy:
       matrix:
         include:
