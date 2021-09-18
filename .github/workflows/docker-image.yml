@@ -11,6 +11,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      TAG=$(date +%s)
     strategy:
       matrix:
         include:
@@ -22,11 +24,9 @@ jobs:
     
     - name: Build image
       run: |
-        export TAG=$(date +%s)
-        echo "::set-env name=TAG::$TAG"
-        docker build . --file Dockerfile-${{ matrix.image }} --tag seladb/${{ matrix.image }}:$TAG
+        docker build . --file Dockerfile-${{ matrix.image }} --tag seladb/${{ matrix.image }}:${{ env.TAG }}
 
     - name: Push to DockerHub
       run: |
         echo ${{ secrets.DOCKER_PASS }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
-        docker push seladb/${{ matrix.image }}:$TAG
+        docker push seladb/${{ matrix.image }}:${{ env.TAG }}
