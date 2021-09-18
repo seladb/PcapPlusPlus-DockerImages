@@ -33,8 +33,7 @@ jobs:
 
     needs: build
     runs-on: ubuntu-20.04
-    container: 
-      image: seladb/{{ matrix.image }}
+    container: seladb/{{ matrix.image }}
     strategy:
       matrix:
         include:
