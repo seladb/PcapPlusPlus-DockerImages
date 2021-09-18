@@ -12,8 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        include:
-          - image: ubuntu2004
+        image: [ubuntu2004, ubuntu1604-dpdk1711, ubuntu1604-dpdk1811, ubuntu1804-dpdk1911]
 
     steps:
     - name: Checkout code
@@ -34,8 +33,7 @@ jobs:
     container: seladb/${{ matrix.image }}
     strategy:
       matrix:
-        include:
-          - image: ubuntu2004
+        image: [ubuntu2004]
 
     steps:
     - name: Checkout PcapPlusPlus
@@ -48,6 +46,42 @@ jobs:
       working-directory: ./PcapPlusPlus
       run: |
         ./configure-linux.sh --default
+  
+    - name: Build PcapPlusPlus
+      working-directory: ./PcapPlusPlus
+      run: make all
+
+    - name: Test Packet++
+      working-directory: ./PcapPlusPlus
+      run: |
+        cd Tests/Packet++Test
+        Bin/Packet++Test
+
+    - name: Test Pcap++
+      working-directory: ./PcapPlusPlus
+      run: |
+        cd Tests/Pcap++Test
+        Bin/Pcap++Test -n
+
+  test-dpdk:
+    needs: build
+    runs-on: ubuntu-20.04
+    container: seladb/${{ matrix.image }}
+    strategy:
+      matrix:
+        image: [ubuntu1604-dpdk1711, ubuntu1604-dpdk1811, ubuntu1804-dpdk1911]
+
+    steps:
+    - name: Checkout PcapPlusPlus
+      uses: actions/checkout@main
+      with:
+        repository: seladb/PcapPlusPlus
+        path: ./PcapPlusPlus
+
+    - name: Configure PcapPlusPlus
+      working-directory: ./PcapPlusPlus
+      run: |
+        ./configure-linux.sh --dpdk --dpdk-home /dpdk
   
     - name: Build PcapPlusPlus
       working-directory: ./PcapPlusPlus
