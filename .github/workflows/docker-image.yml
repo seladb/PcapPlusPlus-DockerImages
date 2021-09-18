@@ -9,7 +9,6 @@ on:
 jobs:
 
   build:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -30,10 +29,9 @@ jobs:
         docker push seladb/${{ matrix.image }}:latest
 
   test:
-
     needs: build
     runs-on: ubuntu-20.04
-    container: seladb/{{ matrix.image }}
+    container: seladb/${{ matrix.image }}
     strategy:
       matrix:
         include:
