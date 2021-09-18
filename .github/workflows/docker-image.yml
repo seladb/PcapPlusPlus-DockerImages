@@ -21,9 +21,12 @@ jobs:
       uses: actions/checkout@v2
     
     - name: Build image
-      run: docker build . --file Dockerfile-${{ matrix.image }} --tag seladb/${{ matrix.image }}:$(date +%s)
+      run: |
+        export TAG=$(date +%s)
+        echo "::set-env name=TAG::$TAG"
+        docker build . --file Dockerfile-${{ matrix.image }} --tag seladb/${{ matrix.image }}:$TAG
 
     - name: Push to DockerHub
       run: |
         echo ${{ secrets.DOCKER_PASS }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
-        docker push seladb/${{ matrix.image }}
+        docker push seladb/${{ matrix.image }}:$TAG
