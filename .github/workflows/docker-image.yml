@@ -22,3 +22,8 @@ jobs:
     
     - name: Build image
       run: docker build . --file Dockerfile-${{ matrix.image }} --tag seladb/${{ matrix.image }}:$(date +%s)
+
+    - name: Push to DockerHub
+      run: |
+        echo ${{ secrets.DOCKER_PASS }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
+        docker push seladb/${{ matrix.image }}
