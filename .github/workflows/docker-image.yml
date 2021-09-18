@@ -56,11 +56,11 @@ jobs:
     - name: Test Packet++
       working-directory: ./PcapPlusPlus
       run: |
-        cd Tests/Packet++
-        Bin/Packet++
+        cd Tests/Packet++Test
+        Bin/Packet++Test
 
     - name: Test Pcap++
       working-directory: ./PcapPlusPlus
       run: |
-        cd Tests/Pcap++
-        Bin/Pcap++ -n
+        cd Tests/Pcap++Test
+        Bin/Pcap++Test -n
