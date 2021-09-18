@@ -24,7 +24,7 @@ jobs:
       run: |
         export TAG=$(date +%s)
         echo "tag=$TAG" >> $GITHUB_ENV
-        docker build . --file Dockerfile-${{ matrix.image }} --tag seladb/${{ matrix.image }}:$TAG
+        docker build . --file Dockerfile-${{ matrix.image }} --tag seladb/${{ matrix.image }}:$TAG --tag eladb/${{ matrix.image }}:latest
 
     - name: Push to DockerHub
       run: |
