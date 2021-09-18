@@ -11,8 +11,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    env:
-      TAG: $(date +%s)
     strategy:
       matrix:
         include:
@@ -24,9 +22,11 @@ jobs:
     
     - name: Build image
       run: |
-        docker build . --file Dockerfile-${{ matrix.image }} --tag seladb/${{ matrix.image }}:${{ env.TAG }}
+        export TAG=$(date +%s)
+        echo "tag=$TAG" >> $GITHUB_ENV
+        docker build . --file Dockerfile-${{ matrix.image }} --tag seladb/${{ matrix.image }}:$TAG
 
     - name: Push to DockerHub
       run: |
         echo ${{ secrets.DOCKER_PASS }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
-        docker push seladb/${{ matrix.image }}:${{ env.TAG }}
+        docker push seladb/${{ matrix.image }}:${{ env.tag }}
