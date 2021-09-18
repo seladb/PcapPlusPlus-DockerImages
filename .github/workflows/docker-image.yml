@@ -20,8 +20,6 @@ jobs:
     
     - name: Build image
       run: |
-        sudo apt-get update
-        sudo apt-get upgrade
         docker build . --file Dockerfile-${{ matrix.image }} --tag seladb/${{ matrix.image }}:latest
 
     - name: Push to DockerHub
