@@ -2,7 +2,6 @@ FROM         ubuntu:18.04
 MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
 CMD          bash
 
-ENV LINUX_HEADERS=5.4.0-1051-azure
 # Required system packages
 RUN apt-get update && apt-get -y install \
   apt-utils \
@@ -15,12 +14,11 @@ RUN apt-get update && apt-get -y install \
   libpcap-dev \
   libnuma-dev \
   cmake \ 
-  linux-headers-$LINUX_HEADERS
+  linux-headers-$(uname -r)
 
 RUN wget http://fast.dpdk.org/rel/dpdk-19.11.10.tar.gz
 RUN tar xvzf dpdk-19.11.10.tar.gz
 RUN mv dpdk-stable-19.11.10 dpdk
 RUN cd dpdk && make config CC=gcc T=x86_64-native-linuxapp-gcc 
 RUN cd dpdk/build && sed -i 's/CONFIG_RTE_LIBRTE_PMD_PCAP=n/CONFIG_RTE_LIBRTE_PMD_PCAP=y/g' .config
-RUN ls -la /lib/modules/
-RUN cd dpdk && export RTE_KERNELDIR=/lib/modules/$LINUX_HEADERS && make CC=gcc
+RUN cd dpdk && make CC=gcc
