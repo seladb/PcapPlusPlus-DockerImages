@@ -33,7 +33,9 @@ jobs:
     container: seladb/${{ matrix.image }}
     strategy:
       matrix:
-        image: [ubuntu1604, ubuntu1804, ubuntu2004, centos7, fedora29, ubuntu1804-zstd, ubuntu2004-dpdk1911, ubuntu2004-pfring]
+      - image: [ubuntu1604, ubuntu1804, ubuntu2004, fedora29, ubuntu1804-zstd, ubuntu2004-dpdk1911, ubuntu2004-pfring]
+      - image: centos7
+        test-flags: -s
 
     steps:
     - name: Checkout PcapPlusPlus
@@ -67,10 +69,10 @@ jobs:
       working-directory: ./PcapPlusPlus
       run: |
         cd Tests/Packet++Test
-        Bin/Packet++Test
+        Bin/Packet++Test ${{ matrix.test-flags }}
 
     - name: Test Pcap++
       working-directory: ./PcapPlusPlus
       run: |
         cd Tests/Pcap++Test
-        Bin/Pcap++Test -n
+        Bin/Pcap++Test -n ${{ matrix.test-flags }}
