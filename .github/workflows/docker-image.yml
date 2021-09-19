@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        image: [ubuntu2004-dpdk1911]
+        image: [ubuntu2004-pfring, ubuntu2004-dpdk1911]
 
     steps:
     - name: Checkout code
@@ -33,7 +33,7 @@ jobs:
     container: seladb/${{ matrix.image }}
     strategy:
       matrix:
-        image: [ubuntu2004]
+        image: [ubuntu2004, ubuntu2004-pfring, ubuntu2004-dpdk1911]
 
     steps:
     - name: Checkout PcapPlusPlus
@@ -47,42 +47,16 @@ jobs:
       run: |
         ./configure-linux.sh --default
   
-    - name: Build PcapPlusPlus
-      working-directory: ./PcapPlusPlus
-      run: make all
-
-    - name: Test Packet++
-      working-directory: ./PcapPlusPlus
-      run: |
-        cd Tests/Packet++Test
-        Bin/Packet++Test
-
-    - name: Test Pcap++
-      working-directory: ./PcapPlusPlus
-      run: |
-        cd Tests/Pcap++Test
-        Bin/Pcap++Test -n
-
-  test-dpdk:
-    needs: build
-    runs-on: ubuntu-20.04
-    container: seladb/${{ matrix.image }}
-    strategy:
-      matrix:
-        image: [ubuntu2004-dpdk1911]
-
-    steps:
-    - name: Checkout PcapPlusPlus
-      uses: actions/checkout@main
-      with:
-        repository: seladb/PcapPlusPlus
-        path: ./PcapPlusPlus
-
-    - name: Configure PcapPlusPlus
-      working-directory: ./PcapPlusPlus
+    - name: Configure PcapPlusPlus with DPDK
       run: |
         ./configure-linux.sh --dpdk --dpdk-home /dpdk
-  
+      if: contains(matrix.image, "dpdk")
+
+    - name: Configure PcapPlusPlus with PF_RING
+      run: |
+        ./configure-linux.sh --pf-ring --pf-ring-home /PF_RING
+      if: contains(matrix.image, "pfring")
+
     - name: Build PcapPlusPlus
       working-directory: ./PcapPlusPlus
       run: make all

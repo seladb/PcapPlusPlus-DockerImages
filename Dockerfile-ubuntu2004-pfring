@@ -16,13 +16,14 @@ RUN apt-get update && apt-get -y install \
   wget \
   xz-utils \
   libpcap-dev \
-  libnuma-dev \
-  cmake \ 
-  linux-headers-$(uname -r)
+  cmake \
+  linux-headers-$(uname -r) \
+  bison \
+  flex \
+  byacc \
+  libnuma-dev
 
-RUN wget http://fast.dpdk.org/rel/dpdk-19.11.10.tar.gz
-RUN tar xvzf dpdk-19.11.10.tar.gz
-RUN mv dpdk-stable-19.11.10 dpdk
-RUN cd dpdk && make config CC=gcc T=x86_64-native-linuxapp-gcc 
-RUN cd dpdk/build && sed -i 's/CONFIG_RTE_LIBRTE_PMD_PCAP=n/CONFIG_RTE_LIBRTE_PMD_PCAP=y/g' .config
-RUN cd dpdk && make CC=gcc
+RUN git clone https://github.com/ntop/PF_RING.git
+RUN cd /PF_RING && git checkout $(git describe --tags --abbrev=0)
+RUN cd /PF_RING/kernel && make 
+RUN cd /PF_RING/userland && make
