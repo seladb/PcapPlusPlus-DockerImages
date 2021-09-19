@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        image: [ubuntu2004-pfring, ubuntu2004-dpdk1911]
+        image: [ubuntu2004-dpdk1911]
 
     steps:
     - name: Checkout code
@@ -33,7 +33,7 @@ jobs:
     container: seladb/${{ matrix.image }}
     strategy:
       matrix:
-        image: [ubuntu2004, ubuntu2004-pfring, ubuntu2004-dpdk1911]
+        image: [ubuntu2004, ubuntu2004-dpdk1911]
 
     steps:
     - name: Checkout PcapPlusPlus
