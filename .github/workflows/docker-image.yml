@@ -33,15 +33,16 @@ jobs:
     container: seladb/${{ matrix.image }}
     strategy:
       matrix:
-      - image: ubuntu1604
-      - image: ubuntu1804
-      - image: ubuntu2004
-      - image: fedora29
-      - image: ubuntu1804-zstd
-      - image: ubuntu2004-dpdk1911
-      - image: ubuntu2004-pfring
-      - image: centos7
-        test-flags: -s
+        include:
+        - image: ubuntu1604
+        - image: ubuntu1804
+        - image: ubuntu2004
+        - image: fedora29
+        - image: ubuntu1804-zstd
+        - image: ubuntu2004-dpdk1911
+        - image: ubuntu2004-pfring
+        - image: centos7
+          test-flags: -s
 
     steps:
     - name: Checkout PcapPlusPlus
