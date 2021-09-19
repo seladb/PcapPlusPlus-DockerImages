@@ -50,12 +50,12 @@ jobs:
     - name: Configure PcapPlusPlus with DPDK
       run: |
         ./configure-linux.sh --dpdk --dpdk-home /dpdk
-      if: contains(matrix.image, "dpdk")
+      if: contains(matrix.image, 'dpdk')
 
     - name: Configure PcapPlusPlus with PF_RING
       run: |
         ./configure-linux.sh --pf-ring --pf-ring-home /PF_RING
-      if: contains(matrix.image, "pfring")
+      if: contains(matrix.image, 'pfring')
 
     - name: Build PcapPlusPlus
       working-directory: ./PcapPlusPlus
