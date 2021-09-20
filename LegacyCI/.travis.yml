@@ -55,7 +55,6 @@ matrix:
     dist: bionic
     env:
       - DOCKER_IMAGE=ubuntu1804-dpdk1911
-      - BUILD_DOCKER_IMAGE=1
   - os: linux
     env:
       - DOCKER_IMAGE=ubuntu1604-pfring

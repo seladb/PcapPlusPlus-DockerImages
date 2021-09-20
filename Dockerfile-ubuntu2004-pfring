@@ -1,0 +1,29 @@
+FROM         ubuntu:20.04
+MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
+CMD          bash
+
+# Configure timezone to avoid user input during build
+ENV TZ=US/Pacific
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# Required system packages
+RUN apt-get update && apt-get -y install \
+  apt-utils \
+  build-essential \
+  curl \
+  git \
+  tar \
+  wget \
+  xz-utils \
+  libpcap-dev \
+  cmake \
+  linux-headers-$(uname -r) \
+  bison \
+  flex \
+  byacc \
+  libnuma-dev
+
+RUN git clone https://github.com/ntop/PF_RING.git
+RUN cd /PF_RING && git checkout $(git describe --tags $(git rev-list --tags --max-count=1))
+RUN cd /PF_RING/kernel && make 
+RUN cd /PF_RING/userland && make
