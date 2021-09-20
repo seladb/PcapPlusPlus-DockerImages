@@ -6,7 +6,7 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     concurrency:
-      group: docker_build
+      group: build-${{ github.head_ref }}
       cancel-in-progress: true
     strategy:
       matrix:
@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-20.04
     container: seladb/${{ matrix.image }}
     concurrency:
-      group: docker_test
+      group: test-${{ github.head_ref }}
       cancel-in-progress: true
     strategy:
       matrix:
