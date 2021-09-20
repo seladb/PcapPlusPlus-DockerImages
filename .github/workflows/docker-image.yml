@@ -5,6 +5,9 @@ jobs:
 
   build:
     runs-on: ubuntu-20.04
+    concurrency:
+      group: docker_build
+      cancel-in-progress: true
     strategy:
       matrix:
         image: [ubuntu1604]
@@ -26,6 +29,9 @@ jobs:
     needs: build
     runs-on: ubuntu-20.04
     container: seladb/${{ matrix.image }}
+    concurrency:
+      group: docker_test
+      cancel-in-progress: true
     strategy:
       matrix:
         include:
