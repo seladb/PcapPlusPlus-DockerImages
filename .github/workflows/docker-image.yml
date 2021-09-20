@@ -1,13 +1,14 @@
 name: Docker Image CI
 on: [push]
 
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
 
   build:
     runs-on: ubuntu-20.04
-    concurrency:
-      group: build-${{ github.head_ref }}
-      cancel-in-progress: true
     strategy:
       matrix:
         image: [ubuntu1604]
@@ -29,9 +30,6 @@ jobs:
     needs: build
     runs-on: ubuntu-20.04
     container: seladb/${{ matrix.image }}
-    concurrency:
-      group: test-${{ github.head_ref }}
-      cancel-in-progress: true
     strategy:
       matrix:
         include:
