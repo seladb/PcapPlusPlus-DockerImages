@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        image: [ubuntu1604]
+        image: [fedora34]
 
     steps:
     - name: Checkout code
@@ -33,15 +33,7 @@ jobs:
     strategy:
       matrix:
         include:
-        - image: ubuntu1604
-        - image: ubuntu1804
-        - image: ubuntu2004
-        - image: fedora29
-        - image: ubuntu1804-zstd
-        - image: ubuntu2004-dpdk1911
-        - image: ubuntu2004-pfring
-        - image: centos7
-          test-flags: -s
+        - image: fedora34
 
     steps:
     - name: Checkout PcapPlusPlus
