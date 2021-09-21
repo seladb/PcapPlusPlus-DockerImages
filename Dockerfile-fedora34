@@ -1,0 +1,18 @@
+FROM         fedora:34
+MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
+CMD          bash
+
+# Required system packages
+RUN dnf upgrade -y && dnf install -y \
+  unzip \
+  curl \
+  git \
+  wget \
+  libpcap-devel \
+  cmake \
+  gcc-c++ \
+  libstdc++-static \
+  && dnf groupinstall -y 'Development Tools'
+
+# Install pytest
+RUN python3 -m pip install pytest
