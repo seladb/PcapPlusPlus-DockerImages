@@ -38,10 +38,16 @@ PLATFORM=...
 docker build . --file Dockerfile-${PLATFORM} --tag seladb/${PLATFORM}:latest
 ```
 
-To test PcapPlusPlus with these docker images please use the `run-*.sh` scripts:
+To test PcapPlusPlus with these docker images please use the `test-pcapplusplus.sh` script:
 
 ```shell
-PLATFORM=...
+./test-pcapplusplus.sh IMAGE [OPTIONAL_TEST_PARAMS]
+```
 
-./run-${PLATFORM}.sh
+For example:
+
+```shell
+./test-pcapplusplus.sh ubuntu2004-dpdk1911
+
+./test-pcapplusplus.sh centos7 -s
 ```
