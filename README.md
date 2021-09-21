@@ -11,8 +11,10 @@ Maintained images (can be updated by CI)
 - Ubuntu 18.04
 - Ubuntu 20.04
 - Fedora 29
+- Fedora 34
 - CentOS 7
 - Ubuntu 20.04 with DPDK 19.11
+- Ubuntu 20.04 with DPDK 20.11 (PcapPlusPlus doesn't support it yet)
 - Ubuntu 20.04 with latest version of PF_RING
 - Ubuntu 18.04 with Zstd v1.4.4
 
