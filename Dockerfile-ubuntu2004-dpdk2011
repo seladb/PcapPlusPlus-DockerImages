@@ -1,0 +1,26 @@
+FROM         ubuntu:20.04
+MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
+CMD          bash
+
+# Configure timezone to avoid user input during build
+ENV TZ=US/Pacific
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# Required system packages
+RUN apt-get update && apt-get -y install \
+  apt-utils \
+  build-essential \
+  curl \
+  git \
+  tar \
+  wget \
+  xz-utils \
+  libpcap-dev \
+  libnuma-dev \
+  cmake \
+  meson \
+  linux-headers-$(uname -r)
+
+RUN wget http://fast.dpdk.org/rel/dpdk-20.11.3.tar.gz
+RUN tar xvzf dpdk-20.11.3.tar.gz
+RUN mv dpdk-stable-20.11.3 dpdk && cd dpdk && meson build && cd build && ninja && ninja install && ldconfig
