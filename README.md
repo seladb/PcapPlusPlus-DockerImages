@@ -13,6 +13,7 @@ Maintained images (can be updated by CI)
 - Fedora 29
 - Fedora 34
 - CentOS 7
+- CentOS 8
 - Ubuntu 20.04 with DPDK 19.11
 - Ubuntu 20.04 with DPDK 20.11
 - Ubuntu 20.04 with latest version of PF_RING
