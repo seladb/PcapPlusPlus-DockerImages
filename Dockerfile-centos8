@@ -1,28 +1,31 @@
 FROM         centos:8
 MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
 CMD          bash
+ARG          PYTHON3_VERSION=3.8.12
+
+# Enable Powertools layer
+RUN yum update -y && yum install -y yum-utils && yum config-manager --set-enabled powertools
 
 # Required system packages
-RUN yum update -y && yum upgrade -y && yum install -y \
-  unzip \
-  build-essential \
-  curl \
-  git \
-  wget \
-  libpcap-devel \
-  cmake \
-  zlib-devel \
+RUN yum update -y && yum install -y \
   bzip2-devel \
+  cmake \
+  curl \
+  gcc-c++ \
+  git \
   libffi-devel \
-  openssl-devel
-
-RUN yum group install -y "Development Tools"
-RUN yum install -y libstdc++-static
+  libpcap-devel \
+  libstdc++-static \
+  openssl-devel \
+  unzip \
+  wget \
+  zlib-devel
 
 # Install Python 3.8
-RUN cd /opt && wget https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tgz
-RUN cd /opt && tar xzf Python-3.8.3.tgz
-RUN cd /opt/Python-3.8.3 && ./configure --enable-optimizations && make altinstall
-RUN rm -rf /opt/Python-3.8.3.tgz
-RUN python3.8 -m pip install --upgrade pip setuptools wheel
-RUN python3.8 -m pip install pytest
+RUN cd /opt && \
+  wget https://www.python.org/ftp/python/${PYTHON3_VERSION}/Python-${PYTHON3_VERSION}.tgz && \
+  tar xzf Python-${PYTHON3_VERSION}.tgz && \
+  cd /opt/Python-${PYTHON3_VERSION} && \
+  ./configure --enable-optimizations && make altinstall && \
+  rm -rf /opt/Python-${PYTHON3_VERSION}.tgz
+RUN python3.8 -m pip install --upgrade pip setuptools wheel pytest
