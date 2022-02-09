@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        image: [centos8]
+        image: [ubuntu2004-zstd]
 
     steps:
     - name: Checkout code
@@ -33,7 +33,7 @@ jobs:
     strategy:
       matrix:
         include:
-        - image: fedora34
+        - image: ubuntu2004-zstd
 
     steps:
     - name: Checkout PcapPlusPlus

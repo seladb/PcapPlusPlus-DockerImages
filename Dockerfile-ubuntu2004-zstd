@@ -1,0 +1,26 @@
+FROM         ubuntu:20.04
+MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
+CMD          bash
+
+# Configure timezone to avoid user input during build
+ENV TZ=US/Pacific
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# Required system packages
+RUN apt-get update && apt-get -y install \
+  apt-utils \
+  build-essential \
+  curl \
+  git \
+  tar \
+  wget \
+  xz-utils \
+  libpcap-dev \
+  cmake \
+  doxygen
+
+# Install Zstd
+RUN wget https://github.com/facebook/zstd/releases/download/v1.5.2/zstd-1.5.2.tar.gz
+RUN tar xvzf zstd-1.5.2.tar.gz
+RUN cd zstd-1.5.2 && make install
+RUN echo "/usr/local/lib" >> /etc/ld.so.conf
