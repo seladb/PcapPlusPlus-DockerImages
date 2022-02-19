@@ -7,29 +7,29 @@ This repo contains docker files and scripts to build docker images that are used
 Docker image inventory:
 
 Maintained images (can be updated by CI)
-- Ubuntu 18.04
-- Ubuntu 20.04
+- CentOS 7
 - Fedora 29
 - Fedora 34
-- CentOS 7
-- CentOS 8
+- Ubuntu 18.04
+- Ubuntu 20.04
 - Ubuntu 20.04 with DPDK 19.11
 - Ubuntu 20.04 with DPDK 20.11
 - Ubuntu 20.04 with latest version of PF_RING
 - Ubuntu 20.04 with Zstd v1.5.2
 
 Legacy images (cannot or shouldn't be updated by CI)
+- CentOS 8
+- Fedora 26
 - Ubuntu 14.04
 - Ubuntu 16.04
-- Fedora 26
 - Ubuntu 16.04 with DPDK 16.11
 - Ubuntu 16.04 with DPDK 17.11
 - Ubuntu 16.04 with DPDK 18.02
 - Ubuntu 16.04 with DPDK 18.11
 - Ubuntu 16.04 with DPDK 19.02
 - Ubuntu 16.04 with DPDK 19.08
-- Ubuntu 18.04 with DPDK 19.11
 - Ubuntu 16.04 with latest version of PF_RING
+- Ubuntu 18.04 with DPDK 19.11
 - Ubuntu 18.04 with Zstd v1.4.4
 
 GitHub Actions is used for building the docker images automatically and push them to Docker Hub.

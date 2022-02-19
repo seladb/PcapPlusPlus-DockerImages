@@ -1,7 +1,7 @@
 FROM         centos:8
 MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
 CMD          bash
-ARG          PYTHON3_VERSION="3.8.12"
+ARG          PYTHON3_VERSION=3.8.12
 
 # Enable Powertools layer
 RUN yum update -y && yum install -y yum-utils && yum config-manager --set-enabled powertools
@@ -22,11 +22,10 @@ RUN yum update -y && yum install -y \
   zlib-devel
 
 # Install Python 3.8
-RUN cd /opt \
-  && wget https://www.python.org/ftp/python/${PYTHON3_VERSION}/Python-${PYTHON3_VERSION}.tgz \
-  && tar xzf Python-${PYTHON3_VERSION}.tgz \
-  && cd /opt/Python-${PYTHON3_VERSION} \
-  && ./configure --enable-optimizations && make altinstall \
-  && rm -rf /opt/Python-${PYTHON_VERSION}.tgz /opt/Python-${PYTHON_VERSION}
-
+RUN cd /opt && \
+  wget https://www.python.org/ftp/python/${PYTHON3_VERSION}/Python-${PYTHON3_VERSION}.tgz && \
+  tar xzf Python-${PYTHON3_VERSION}.tgz && \
+  cd /opt/Python-${PYTHON3_VERSION} && \
+  ./configure --enable-optimizations && make altinstall && \
+  rm -rf /opt/Python-${PYTHON3_VERSION}.tgz
 RUN python3.8 -m pip install --upgrade pip setuptools wheel pytest
