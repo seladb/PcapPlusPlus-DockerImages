@@ -7,7 +7,6 @@ This repo contains docker files and scripts to build docker images that are used
 Docker image inventory:
 
 Maintained images (can be updated by CI)
-- Ubuntu 16.04
 - Ubuntu 18.04
 - Ubuntu 20.04
 - Fedora 29
@@ -21,6 +20,7 @@ Maintained images (can be updated by CI)
 
 Legacy images (cannot or shouldn't be updated by CI)
 - Ubuntu 14.04
+- Ubuntu 16.04
 - Fedora 26
 - Ubuntu 16.04 with DPDK 16.11
 - Ubuntu 16.04 with DPDK 17.11
