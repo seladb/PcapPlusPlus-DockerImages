@@ -17,7 +17,7 @@ RUN apt-get update && apt-get -y install \
   xz-utils \
   libpcap-dev \
   cmake \
-  linux-headers-$(uname -r) \
+  linux-headers-virtual \
   bison \
   flex \
   byacc \
