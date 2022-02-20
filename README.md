@@ -7,6 +7,7 @@ This repo contains docker files and scripts to build docker images that are used
 Docker image inventory:
 
 Maintained images (can be updated by CI)
+- Alpine 3.15
 - CentOS 7
 - Fedora 29
 - Fedora 34
