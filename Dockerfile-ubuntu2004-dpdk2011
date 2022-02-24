@@ -16,15 +16,10 @@ RUN apt-get update && apt-get -y install \
   git \
   libnuma-dev \
   libpcap-dev \
-  linux-virtual \
   meson \
   tar \
   wget \
   xz-utils
-
-# Create link to /lib/modules for this kernel
-RUN cd /lib/modules && \
-  ln -s *-generic `uname -r`
 
 RUN wget http://fast.dpdk.org/rel/dpdk-${DPDK_VERSION}.tar.gz \
   && tar xvzf dpdk-${DPDK_VERSION}.tar.gz \
