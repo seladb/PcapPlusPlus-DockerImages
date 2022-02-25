@@ -41,8 +41,17 @@ jobs:
     container: seladb/${{ matrix.image }}
     strategy:
       matrix:
-        include:
-          - image: ubuntu2004-zstd
+        image:
+          - alpine315
+          - centos7
+          - fedora29
+          - fedora34
+          - ubuntu1804
+          - ubuntu2004
+          - ubuntu2004-dpdk1911
+          - ubuntu2004-dpdk2011
+          - ubuntu2004-pfring
+          - ubuntu2004-zstd
 
     steps:
       - name: Checkout PcapPlusPlus
