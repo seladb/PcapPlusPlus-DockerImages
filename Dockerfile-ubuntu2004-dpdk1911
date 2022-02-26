@@ -28,8 +28,8 @@ RUN cd /lib/modules && \
 
 RUN wget http://fast.dpdk.org/rel/dpdk-${DPDK_VERSION}.tar.gz \
   && tar xvzf dpdk-${DPDK_VERSION}.tar.gz \
+  && rm -rf dpdk-${DPDK_VERSION}.tar.gz \
   && mv dpdk-stable-${DPDK_VERSION} dpdk \
   && cd dpdk && make config CC=gcc T=${DPDK_TARGET} \
   && sed -i 's/CONFIG_RTE_LIBRTE_PMD_PCAP=n/CONFIG_RTE_LIBRTE_PMD_PCAP=y/g' build/.config \
-  && make CC=gcc && make install \
-  && cd .. && rm -rf dpdk dpdk-${DPDK_VERSION}.tar.gz
+  && make CC=gcc && make install

@@ -23,6 +23,6 @@ RUN apt-get update && apt-get -y install \
 
 RUN wget http://fast.dpdk.org/rel/dpdk-${DPDK_VERSION}.tar.gz \
   && tar xvzf dpdk-${DPDK_VERSION}.tar.gz \
+  && rm -rf dpdk-${DPDK_VERSION}.tar.gz \
   && mv dpdk-stable-${DPDK_VERSION} dpdk && cd dpdk \
-  && meson build && cd build && ninja && ninja install && ldconfig \
-  && cd ../.. && rm -rf dpdk*
+  && meson build && cd build && ninja && ninja install && ldconfig
