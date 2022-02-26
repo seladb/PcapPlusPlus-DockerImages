@@ -6,25 +6,34 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-
   build:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        image: [ubuntu2004-zstd]
+        image:
+          - alpine315
+          - centos7
+          - fedora29
+          - fedora34
+          - ubuntu1804
+          - ubuntu2004
+          - ubuntu2004-dpdk1911
+          - ubuntu2004-dpdk2011
+          - ubuntu2004-pfring
+          - ubuntu2004-zstd
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    
-    - name: Build image
-      run: |
-        docker build . --file Dockerfile-${{ matrix.image }} --tag seladb/${{ matrix.image }}:latest
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Push to DockerHub
-      run: |
-        echo ${{ secrets.DOCKER_PASS }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
-        docker push seladb/${{ matrix.image }}:latest
+      - name: Build image
+        run: |
+          docker build . --file Dockerfile-${{ matrix.image }} --tag seladb/${{ matrix.image }}:latest
+
+      - name: Push to DockerHub
+        run: |
+          echo ${{ secrets.DOCKER_PASS }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
+          docker push seladb/${{ matrix.image }}:latest
 
   test:
     needs: build
@@ -32,45 +41,54 @@ jobs:
     container: seladb/${{ matrix.image }}
     strategy:
       matrix:
-        include:
-        - image: ubuntu2004-zstd
+        image:
+          - alpine315
+          - centos7
+          - fedora29
+          - fedora34
+          - ubuntu1804
+          - ubuntu2004
+          - ubuntu2004-dpdk1911
+          - ubuntu2004-dpdk2011
+          - ubuntu2004-pfring
+          - ubuntu2004-zstd
 
     steps:
-    - name: Checkout PcapPlusPlus
-      uses: actions/checkout@main
-      with:
-        repository: seladb/PcapPlusPlus
-        path: ./PcapPlusPlus
+      - name: Checkout PcapPlusPlus
+        uses: actions/checkout@main
+        with:
+          repository: seladb/PcapPlusPlus
+          path: ./PcapPlusPlus
 
-    - name: Configure PcapPlusPlus
-      working-directory: ./PcapPlusPlus
-      run: |
-        ./configure-linux.sh --default
-  
-    - name: Configure PcapPlusPlus with DPDK
-      working-directory: ./PcapPlusPlus
-      run: |
-        ./configure-linux.sh --dpdk --dpdk-home /dpdk
-      if: contains(matrix.image, 'dpdk')
+      - name: Configure PcapPlusPlus
+        working-directory: ./PcapPlusPlus
+        run: |
+          ./configure-linux.sh --default
 
-    - name: Configure PcapPlusPlus with PF_RING
-      working-directory: ./PcapPlusPlus
-      run: |
-        ./configure-linux.sh --pf-ring --pf-ring-home /PF_RING
-      if: contains(matrix.image, 'pfring')
+      - name: Configure PcapPlusPlus with DPDK
+        working-directory: ./PcapPlusPlus
+        run: |
+          ./configure-linux.sh --dpdk --dpdk-home /dpdk
+        if: contains(matrix.image, 'dpdk')
 
-    - name: Build PcapPlusPlus
-      working-directory: ./PcapPlusPlus
-      run: make all
+      - name: Configure PcapPlusPlus with PF_RING
+        working-directory: ./PcapPlusPlus
+        run: |
+          ./configure-linux.sh --pf-ring --pf-ring-home /PF_RING
+        if: contains(matrix.image, 'pfring')
 
-    - name: Test Packet++
-      working-directory: ./PcapPlusPlus
-      run: |
-        cd Tests/Packet++Test
-        Bin/Packet++Test ${{ matrix.test-flags }}
+      - name: Build PcapPlusPlus
+        working-directory: ./PcapPlusPlus
+        run: make all
 
-    - name: Test Pcap++
-      working-directory: ./PcapPlusPlus
-      run: |
-        cd Tests/Pcap++Test
-        Bin/Pcap++Test -n ${{ matrix.test-flags }}
+      - name: Test Packet++
+        working-directory: ./PcapPlusPlus
+        run: |
+          cd Tests/Packet++Test
+          Bin/Packet++Test ${{ matrix.test-flags }}
+
+      - name: Test Pcap++
+        working-directory: ./PcapPlusPlus
+        run: |
+          cd Tests/Pcap++Test
+          Bin/Pcap++Test -n ${{ matrix.test-flags }}

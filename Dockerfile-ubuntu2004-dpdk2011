@@ -1,6 +1,7 @@
 FROM         ubuntu:20.04
 MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
 CMD          bash
+ARG          DPDK_VERSION="20.11.4"
 
 # Configure timezone to avoid user input during build
 ENV TZ=US/Pacific
@@ -10,17 +11,18 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update && apt-get -y install \
   apt-utils \
   build-essential \
+  cmake \
   curl \
   git \
+  libnuma-dev \
+  libpcap-dev \
+  meson \
   tar \
   wget \
-  xz-utils \
-  libpcap-dev \
-  libnuma-dev \
-  cmake \
-  meson \
-  linux-headers-$(uname -r)
+  xz-utils
 
-RUN wget http://fast.dpdk.org/rel/dpdk-20.11.3.tar.gz
-RUN tar xvzf dpdk-20.11.3.tar.gz
-RUN mv dpdk-stable-20.11.3 dpdk && cd dpdk && meson build && cd build && ninja && ninja install && ldconfig
+RUN wget http://fast.dpdk.org/rel/dpdk-${DPDK_VERSION}.tar.gz \
+  && tar xvzf dpdk-${DPDK_VERSION}.tar.gz \
+  && rm -rf dpdk-${DPDK_VERSION}.tar.gz \
+  && mv dpdk-stable-${DPDK_VERSION} dpdk && cd dpdk \
+  && meson build && cd build && ninja && ninja install && ldconfig

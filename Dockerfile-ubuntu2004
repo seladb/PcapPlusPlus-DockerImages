@@ -10,20 +10,20 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update && apt-get -y install \
   apt-utils \
   build-essential \
+  clang-9 \
+  cmake \
   curl \
+  doxygen \
   git \
+  libpcap-dev \
+  python3-pip \
+  software-properties-common \
   tar \
   wget \
-  xz-utils \
-  libpcap-dev \
-  cmake \
-  doxygen \
-  clang-9 \
-  software-properties-common \
-  python3-pip
+  xz-utils
 
-RUN ln -s /usr/bin/clang-9 /usr/bin/clang
-RUN ln -s /usr/bin/clang++-9 /usr/bin/clang++
+RUN ln -s /usr/bin/clang-9 /usr/bin/clang \
+  && ln -s /usr/bin/clang++-9 /usr/bin/clang++
 
 # Update python3 pip
 RUN python3 -m pip install --upgrade pip setuptools wheel

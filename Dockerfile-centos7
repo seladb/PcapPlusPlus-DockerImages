@@ -1,6 +1,7 @@
 FROM         centos:7
 MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
 CMD          bash
+ARG          PYTHON_VERSION="3.8.12"
 
 # Required system packages
 RUN yum update -y && yum upgrade -y && yum install -y \
@@ -16,13 +17,13 @@ RUN yum update -y && yum upgrade -y && yum install -y \
   libffi-devel \
   openssl-devel
 
-RUN yum group install -y "Development Tools"
-RUN yum install -y libstdc++-static
+RUN yum group install -y "Development Tools" \
+  && yum install -y libstdc++-static
 
 # Install Python 3.8
-RUN cd /opt && wget https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tgz
-RUN cd /opt && tar xzf Python-3.8.3.tgz
-RUN cd /opt/Python-3.8.3 && ./configure --enable-optimizations && make altinstall
-RUN rm -rf /opt/Python-3.8.3.tgz
-RUN python3.8 -m pip install --upgrade pip setuptools wheel
-RUN python3.8 -m pip install pytest
+RUN cd /opt && wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz \
+  && tar xzf Python-${PYTHON_VERSION}.tgz \
+  && cd /opt/Python-${PYTHON_VERSION} && ./configure --enable-optimizations && make altinstall \
+  && rm -rf /opt/Python-${PYTHON_VERSION}.tgz /opt/Python-${PYTHON_VERSION}
+
+RUN python3.8 -m pip install --upgrade pip setuptools wheel pytest
