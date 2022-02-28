@@ -29,3 +29,8 @@ RUN add-apt-repository -y ppa:deadsnakes/ppa \
 # Update git to latest version
 RUN add-apt-repository -y ppa:git-core/ppa \
   && apt-get update && apt-get -y install git
+
+# Update CMake to latest version
+RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add - \
+  && apt-add-repository 'deb https://apt.kitware.com/ubuntu/ bionic main' \
+  && apt-get update && apt-get install -y cmake
