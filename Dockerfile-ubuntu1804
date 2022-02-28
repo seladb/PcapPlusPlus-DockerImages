@@ -12,6 +12,7 @@ RUN apt-get update && apt-get -y install \
   doxygen \
   git \
   libpcap-dev \
+  pkg-config \
   software-properties-common \
   tar \
   wget \

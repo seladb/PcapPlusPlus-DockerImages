@@ -4,14 +4,15 @@ CMD          bash
 
 # Required system packages
 RUN dnf upgrade -y && dnf install -y \
-  unzip \
-  curl \
-  git \
-  wget \
-  libpcap-devel \
   cmake \
+  curl \
   gcc-c++ \
+  git \
+  libpcap-devel \
   libstdc++-static \
+  pkg-config \
+  unzip \
+  wget \
   && dnf groupinstall -y 'Development Tools'
 
 # Install pytest

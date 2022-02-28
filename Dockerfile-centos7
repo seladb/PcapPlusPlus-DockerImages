@@ -5,17 +5,18 @@ ARG          PYTHON_VERSION="3.8.12"
 
 # Required system packages
 RUN yum update -y && yum upgrade -y && yum install -y \
-  unzip \
   build-essential \
+  bzip2-devel \
+  cmake \
   curl \
   git \
-  wget \
-  libpcap-devel \
-  cmake \
-  zlib-devel \
-  bzip2-devel \
   libffi-devel \
-  openssl-devel
+  libpcap-devel \
+  openssl-devel \
+  pkg-config \
+  unzip \
+  wget \
+  zlib-devel
 
 RUN yum group install -y "Development Tools" \
   && yum install -y libstdc++-static
