@@ -13,6 +13,7 @@ jobs:
         image:
           - alpine315
           - centos7
+            test-flags: -s
           - fedora29
           - fedora34
           - ubuntu1804
