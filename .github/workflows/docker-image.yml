@@ -43,6 +43,7 @@ jobs:
       matrix:
         include:
           - image: alpine315
+            configure: --musl
           - image: centos7
             test-flags: -s
           - image: fedora29
@@ -64,7 +65,7 @@ jobs:
       - name: Configure PcapPlusPlus
         working-directory: ./PcapPlusPlus
         run: |
-          ./configure-linux.sh --default
+          ./configure-linux.sh --default ${{ matrix.configure }}
 
       - name: Configure PcapPlusPlus with DPDK
         working-directory: ./PcapPlusPlus
