@@ -9,19 +9,20 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Required system packages
 RUN apt-get update && apt-get -y install \
   apt-utils \
+  bison \
   build-essential \
+  byacc \
+  cmake \
   curl \
+  flex \
   git \
+  libnuma-dev \
+  libpcap-dev \
+  linux-virtual \
+  pkg-config \
   tar \
   wget \
-  xz-utils \
-  libpcap-dev \
-  cmake \
-  linux-virtual \
-  bison \
-  flex \
-  byacc \
-  libnuma-dev
+  xz-utils
 
 # Create link to /lib/modules for this kernel
 RUN cd /lib/modules && \

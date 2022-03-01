@@ -13,6 +13,7 @@ RUN apk add --no-cache \
   git \
   libpcap-dev \
   make \
+  pkgconfig \
   py3-pip \
   tar \
   wget \

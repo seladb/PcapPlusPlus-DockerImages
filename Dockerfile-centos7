@@ -2,20 +2,21 @@ FROM         centos:7
 MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
 CMD          bash
 ARG          PYTHON_VERSION="3.8.12"
+ARG          CMAKE_VERSION="3.22.2"
 
 # Required system packages
 RUN yum update -y && yum upgrade -y && yum install -y \
-  unzip \
   build-essential \
+  bzip2-devel \
   curl \
   git \
-  wget \
-  libpcap-devel \
-  cmake \
-  zlib-devel \
-  bzip2-devel \
   libffi-devel \
-  openssl-devel
+  libpcap-devel \
+  openssl-devel \
+  pkg-config \
+  unzip \
+  wget \
+  zlib-devel
 
 RUN yum group install -y "Development Tools" \
   && yum install -y libstdc++-static
@@ -27,3 +28,11 @@ RUN cd /opt && wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-$
   && rm -rf /opt/Python-${PYTHON_VERSION}.tgz /opt/Python-${PYTHON_VERSION}
 
 RUN python3.8 -m pip install --upgrade pip setuptools wheel pytest
+
+# Install Recent Cmake
+RUN wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz \
+  && tar xzf cmake-${CMAKE_VERSION}.tar.gz \
+  && cd cmake-${CMAKE_VERSION} \
+  && ./bootstrap --prefix=/usr/local \
+  && make -j$(nproc) && make install \
+  && cd .. && rm -rf cmake-${CMAKE_VERSION}*

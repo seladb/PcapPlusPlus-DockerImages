@@ -17,6 +17,7 @@ RUN apt-get update && apt-get -y install \
   libnuma-dev \
   libpcap-dev \
   meson \
+  pkg-config \
   tar \
   wget \
   xz-utils
