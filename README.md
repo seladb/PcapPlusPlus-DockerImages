@@ -9,6 +9,7 @@ Docker image inventory:
 Maintained images (can be updated by CI)
 - Alpine 3.15
 - CentOS 7
+- CentOS Stream 9
 - Fedora 29
 - Fedora 34
 - Ubuntu 18.04

@@ -1,0 +1,25 @@
+FROM         quay.io/centos/centos:stream9
+MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
+CMD          bash
+
+# Required system packages
+RUN yum install --enablerepo=crb --allowerasing -y \
+  bzip2-devel \
+  cmake \
+  curl \
+  g++ \
+  gcc \
+  git \
+  libffi-devel \
+  libpcap-devel \
+  libstdc++-static \
+  libzstd-devel \
+  make \
+  openssl-devel \
+  pkg-config \
+  python3-pip \
+  unzip \
+  wget \
+  zlib-devel
+
+RUN python3 -m pip install --upgrade pip setuptools wheel pytest
