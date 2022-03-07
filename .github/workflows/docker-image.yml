@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         image:
-          - ubuntu2004
+          - cetnos7
 
     steps:
       - name: Checkout code
