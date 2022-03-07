@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         image:
-          - centosstream9
+          - ubuntu2004
 
     steps:
       - name: Checkout code
@@ -28,4 +28,4 @@ jobs:
         run: |
           echo ${{ secrets.DOCKER_PASS }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
           docker push seladb/${{ matrix.image }}:latest
-        if: github.ref == 'refs/heads/master'
+        if: ${{ !github.event.pull_request.head.repo.fork && github.ref == 'refs/heads/master' }}
