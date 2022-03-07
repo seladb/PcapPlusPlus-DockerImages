@@ -10,6 +10,7 @@ RUN yum upgrade -y && yum install -y \
   build-essential \
   bzip2-devel \
   curl \
+  curl-devel \
   gcc-c++ \
   gettext \
   libffi-devel \
