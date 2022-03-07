@@ -11,16 +11,8 @@ jobs:
     strategy:
       matrix:
         image:
-          - alpine315
           - centos7
-          - fedora29
-          - fedora34
-          - ubuntu1804
-          - ubuntu2004
-          - ubuntu2004-dpdk1911
-          - ubuntu2004-dpdk2011
-          - ubuntu2004-pfring
-          - ubuntu2004-zstd
+          - centosstream9
 
     steps:
       - name: Checkout code
@@ -42,18 +34,9 @@ jobs:
     strategy:
       matrix:
         include:
-          - image: alpine315
-            configure: --musl
           - image: centos7
             test-flags: -s
-          - image: fedora29
-          - image: fedora34
-          - image: ubuntu1804
-          - image: ubuntu2004
-          - image: ubuntu2004-dpdk1911
-          - image: ubuntu2004-dpdk2011
-          - image: ubuntu2004-pfring
-          - image: ubuntu2004-zstd
+          - image: centosstream9
 
     steps:
       - name: Checkout PcapPlusPlus

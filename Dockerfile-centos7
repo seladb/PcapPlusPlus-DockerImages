@@ -3,23 +3,24 @@ MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
 CMD          bash
 ARG          PYTHON_VERSION="3.8.12"
 ARG          CMAKE_VERSION="3.22.2"
+ARG          GIT_VERSION="2.35.1"
 
 # Required system packages
-RUN yum update -y && yum upgrade -y && yum install -y \
+RUN yum upgrade -y && yum install -y \
   build-essential \
   bzip2-devel \
   curl \
-  git \
+  gcc-c++ \
+  gettext \
   libffi-devel \
   libpcap-devel \
+  libstdc++-static \
+  make \
   openssl-devel \
   pkg-config \
   unzip \
   wget \
   zlib-devel
-
-RUN yum group install -y "Development Tools" \
-  && yum install -y libstdc++-static
 
 # Install Python 3.8
 RUN cd /opt && wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz \
@@ -36,3 +37,11 @@ RUN wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cm
   && ./bootstrap --prefix=/usr/local \
   && make -j$(nproc) && make install \
   && cd .. && rm -rf cmake-${CMAKE_VERSION}*
+
+# Install Recent Git
+RUN wget https://mirrors.edge.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz \
+  && tar xf git-${GIT_VERSION}.tar.gz && rm -rf git-${GIT_VERSION}.tar.gz \
+  && cd git-${GIT_VERSION}/ \
+  && ./configure --prefix=/usr/local \
+  && make -j all && make install \
+  && cd .. && rm -rf git-${GIT_VERSION}
