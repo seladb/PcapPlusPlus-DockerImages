@@ -1,5 +1,5 @@
 name: Docker Image CI
-on: [push]
+on: [push, pull_request]
 
 concurrency:
   group: ${{ github.ref }}
@@ -11,8 +11,7 @@ jobs:
     strategy:
       matrix:
         image:
-          - centos7
-          - centosstream9
+          - ubuntu2004
 
     steps:
       - name: Checkout code
@@ -22,58 +21,11 @@ jobs:
         run: |
           docker build . --file Dockerfile-${{ matrix.image }} --tag seladb/${{ matrix.image }}:latest
 
+      - name: Test PcapPlusPlus
+        run: ./test-pcapplusplus.sh ${{ matrix.image }}
+
       - name: Push to DockerHub
         run: |
           echo ${{ secrets.DOCKER_PASS }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
           docker push seladb/${{ matrix.image }}:latest
-
-  test:
-    needs: build
-    runs-on: ubuntu-20.04
-    container: seladb/${{ matrix.image }}
-    strategy:
-      matrix:
-        include:
-          - image: centos7
-            test-flags: -s
-          - image: centosstream9
-
-    steps:
-      - name: Checkout PcapPlusPlus
-        uses: actions/checkout@main
-        with:
-          repository: seladb/PcapPlusPlus
-          path: ./PcapPlusPlus
-
-      - name: Configure PcapPlusPlus
-        working-directory: ./PcapPlusPlus
-        run: |
-          ./configure-linux.sh --default ${{ matrix.configure }}
-
-      - name: Configure PcapPlusPlus with DPDK
-        working-directory: ./PcapPlusPlus
-        run: |
-          ./configure-linux.sh --dpdk --dpdk-home /dpdk
-        if: contains(matrix.image, 'dpdk')
-
-      - name: Configure PcapPlusPlus with PF_RING
-        working-directory: ./PcapPlusPlus
-        run: |
-          ./configure-linux.sh --pf-ring --pf-ring-home /PF_RING
-        if: contains(matrix.image, 'pfring')
-
-      - name: Build PcapPlusPlus
-        working-directory: ./PcapPlusPlus
-        run: make all
-
-      - name: Test Packet++
-        working-directory: ./PcapPlusPlus
-        run: |
-          cd Tests/Packet++Test
-          Bin/Packet++Test ${{ matrix.test-flags }}
-
-      - name: Test Pcap++
-        working-directory: ./PcapPlusPlus
-        run: |
-          cd Tests/Pcap++Test
-          Bin/Pcap++Test -n ${{ matrix.test-flags }}
+        if: ${{ !github.event.pull_request.head.repo.fork && github.ref == 'refs/heads/master' }}

@@ -44,7 +44,7 @@ clean_up() {
 }
 
 # Pull the image from DockerHub
-docker pull seladb/$IMAGE
+# docker pull seladb/$IMAGE
 
 # Create a container, mount this script to it
 docker run -itd --rm --name $IMAGE -v $(pwd)/test-pcapplusplus.sh:/test-pcapplusplus.sh seladb/$IMAGE bash
