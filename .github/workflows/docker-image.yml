@@ -1,5 +1,5 @@
 name: Docker Image CI
-on: [push]
+on: [push, pull_request]
 
 concurrency:
   group: ${{ github.ref }}
@@ -22,23 +22,6 @@ jobs:
         run: |
           docker build . --file Dockerfile-${{ matrix.image }} --tag seladb/${{ matrix.image }}:latest
 
-      - name: Push to DockerHub
-        run: |
-          echo ${{ secrets.DOCKER_PASS }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
-          docker push seladb/${{ matrix.image }}:latest
-
-  test:
-    needs: build
-    runs-on: ubuntu-20.04
-    container: seladb/${{ matrix.image }}
-    strategy:
-      matrix:
-        include:
-          - image: centos7
-            test-flags: -s
-          - image: centosstream9
-
-    steps:
       - name: Checkout PcapPlusPlus
         uses: actions/checkout@main
         with:
@@ -77,3 +60,9 @@ jobs:
         run: |
           cd Tests/Pcap++Test
           Bin/Pcap++Test -n ${{ matrix.test-flags }}
+
+      - name: Push to DockerHub
+        run: |
+          echo ${{ secrets.DOCKER_PASS }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
+          docker push seladb/${{ matrix.image }}:latest
+        if: github.ref == 'refs/heads/master'
