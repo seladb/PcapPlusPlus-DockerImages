@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         image:
-          - centos7
+          - centosstream9
 
     steps:
       - name: Checkout code
