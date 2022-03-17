@@ -61,10 +61,10 @@ CONFIG="default"
 if [[ $IMAGE == *"dpdk"* ]]; then
     CONFIG="dpdk"
 else 
-  if [[ $string == *"pfring"* ]]; then
+  if [[ $IMAGE == *"pfring"* ]]; then
     CONFIG="pfring"
   else
-    if [[ $string == *"alpine"* ]]; then
+    if [[ $IMAGE == *"alpine"* ]]; then
         CONFIG="musl"
     fi
   fi
