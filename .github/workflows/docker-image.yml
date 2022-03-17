@@ -13,6 +13,12 @@ jobs:
         include:
           - image: centos7
             test-flags: -s
+          - image: fedora29
+          - image: fedora34
+          - image: ubuntu1804
+          - image: ubuntu2004
+          - image: ubuntu2004-zstd
+          - image: alpine315
 
     steps:
       - name: Checkout code

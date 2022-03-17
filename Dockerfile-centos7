@@ -4,6 +4,7 @@ CMD          bash
 ARG          PYTHON_VERSION="3.8.12"
 ARG          CMAKE_VERSION="3.22.2"
 ARG          GIT_VERSION="2.35.1"
+ARG          TCPREPLAY_VERSION="4.4.1"
 
 # Required system packages
 RUN yum upgrade -y && yum install -y \
@@ -21,7 +22,14 @@ RUN yum upgrade -y && yum install -y \
   pkg-config \
   unzip \
   wget \
-  zlib-devel
+  zlib-devel \
+  net-tools
+
+# Install tcpreplay
+RUN cd /opt && wget https://github.com/appneta/tcpreplay/releases/download/v${TCPREPLAY_VERSION}/tcpreplay-${TCPREPLAY_VERSION}.tar.gz \
+  && tar xvf tcpreplay-${TCPREPLAY_VERSION}.tar.gz \
+  && cd /opt/tcpreplay-${TCPREPLAY_VERSION} && ./configure && make && make install \
+  && rm -rf /opt/tcpreplay-${TCPREPLAY_VERSION}.tar.gz /opt/tcpreplay-${TCPREPLAY_VERSION}
 
 # Install Python 3.8
 RUN cd /opt && wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz \
