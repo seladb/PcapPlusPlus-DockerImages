@@ -21,7 +21,9 @@ RUN apt-get update && apt-get -y install \
   pkg-config \
   tar \
   wget \
-  xz-utils
+  xz-utils \
+  net-tools \
+  tcpreplay
 
 # Create link to /lib/modules for this kernel
 RUN cd /lib/modules && \

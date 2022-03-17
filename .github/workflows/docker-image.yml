@@ -19,6 +19,9 @@ jobs:
           - image: ubuntu2004
           - image: ubuntu2004-zstd
           - image: alpine315
+          - image: ubuntu2004-dpdk1911
+          - image: ubuntu2004-dpdk2011
+          - image: ubuntu2004-pfring
 
     steps:
       - name: Checkout code
