@@ -19,6 +19,10 @@ if [ "$1" == "build_and_run" ]; then
     else
         if [ "$2" == "pfring" ]; then
             CONFIG_PARAMS="--pf-ring --pf-ring-home /PF_RING"
+        else
+            if [ "$2" == "musl" ]; then
+                CONFIG_PARAMS="--default --musl"
+            fi
         fi
     fi
 
@@ -59,6 +63,10 @@ if [[ $IMAGE == *"dpdk"* ]]; then
 else 
   if [[ $string == *"pfring"* ]]; then
     CONFIG="pfring"
+  else
+    if [[ $string == *"alpine"* ]]; then
+        CONFIG="musl"
+    fi
   fi
 fi
 
