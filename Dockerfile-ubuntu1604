@@ -17,7 +17,8 @@ RUN apt-get update && apt-get -y install \
   software-properties-common \
   net-tools \
   tcpreplay \
-  zlib1g-dev
+  zlib1g-dev \
+  ca-certificates
 
 # Install Python 3.8
 RUN cd /opt && wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz \
