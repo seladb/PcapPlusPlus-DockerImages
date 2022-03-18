@@ -11,17 +11,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - image: centos7
-            test-flags: -s
-          - image: fedora29
-          - image: fedora34
-          - image: ubuntu1804
-          - image: ubuntu2004
-          - image: ubuntu2004-zstd
-          - image: alpine315
-          - image: ubuntu2004-dpdk1911
-          - image: ubuntu2004-dpdk2011
-          - image: ubuntu2004-pfring
+          - image: ubuntu1604
+
 
     steps:
       - name: Checkout code
