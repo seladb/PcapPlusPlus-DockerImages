@@ -13,7 +13,9 @@ RUN apt-get update && apt-get -y install \
   xz-utils \
   libpcap-dev \
   cmake \
-  software-properties-common
+  software-properties-common \
+  net-tools \
+  tcpreplay
 
 # Install Python 3.8
 RUN add-apt-repository -y ppa:deadsnakes/ppa
