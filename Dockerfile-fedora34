@@ -13,6 +13,8 @@ RUN dnf upgrade -y && dnf install -y \
   pkg-config \
   unzip \
   wget \
+  net-tools \
+  tcpreplay \
   && dnf groupinstall -y 'Development Tools'
 
 # Install pytest

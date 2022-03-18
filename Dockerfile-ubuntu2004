@@ -21,7 +21,9 @@ RUN apt-get update && apt-get -y install \
   software-properties-common \
   tar \
   wget \
-  xz-utils
+  xz-utils \
+  net-tools \
+  tcpreplay
 
 RUN ln -s /usr/bin/clang-9 /usr/bin/clang \
   && ln -s /usr/bin/clang++-9 /usr/bin/clang++

@@ -19,7 +19,9 @@ RUN apt-get update && apt-get -y install \
   pkg-config \
   tar \
   wget \
-  xz-utils
+  xz-utils \
+  net-tools \
+  tcpreplay
 
 # Install Zstd
 RUN wget https://github.com/facebook/zstd/releases/download/v${ZSTD_VERSION}/zstd-${ZSTD_VERSION}.tar.gz \

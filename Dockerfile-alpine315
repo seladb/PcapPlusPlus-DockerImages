@@ -17,7 +17,11 @@ RUN apk add --no-cache \
   py3-pip \
   tar \
   wget \
-  zstd-dev
+  zstd-dev \
+  py-netifaces
+
+RUN apk add tcpreplay \
+  --repository=https://dl-cdn.alpinelinux.org/alpine/edge/testing
 
 # Update python3 pip
 RUN python3 -m pip install --upgrade pip setuptools wheel
