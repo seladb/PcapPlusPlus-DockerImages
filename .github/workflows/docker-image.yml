@@ -11,8 +11,9 @@ jobs:
     strategy:
       matrix:
         include:
-          - image: ubuntu1604
-
+          - image: ubuntu2004-pfring
+          - image: ubuntu2004-dpdk1911
+          - image: ubuntu2004-dpdk2011
 
     steps:
       - name: Checkout code

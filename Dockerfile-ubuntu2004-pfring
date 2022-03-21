@@ -20,6 +20,7 @@ RUN apt-get update && apt-get -y install \
   libpcap-dev \
   linux-virtual \
   pkg-config \
+  python3-pip \
   tar \
   wget \
   xz-utils \
@@ -34,3 +35,6 @@ RUN git clone https://github.com/ntop/PF_RING.git \
   && cd /PF_RING && git checkout $(git describe --tags $(git rev-list --tags --max-count=1)) \
   && cd /PF_RING/kernel && make  \
   && cd /PF_RING/userland && make
+
+# Update python3 pip
+RUN python3 -m pip install --upgrade pip setuptools wheel
