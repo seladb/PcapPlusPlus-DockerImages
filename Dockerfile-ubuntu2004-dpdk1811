@@ -1,6 +1,8 @@
 FROM         ubuntu:20.04
 MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
 CMD          bash
+ARG          DPDK_VERSION="18.11.11"
+ARG          DPDK_TARGET="x86_64-native-linuxapp-gcc"
 
 # Configure timezone to avoid user input during build
 ENV TZ=US/Pacific
@@ -9,12 +11,9 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Required system packages
 RUN apt-get update && apt-get -y install \
   apt-utils \
-  bison \
   build-essential \
-  byacc \
   cmake \
   curl \
-  flex \
   git \
   libnuma-dev \
   libpcap-dev \
@@ -31,10 +30,13 @@ RUN apt-get update && apt-get -y install \
 RUN cd /lib/modules && \
   ln -s *-generic `uname -r`
 
-RUN git clone https://github.com/ntop/PF_RING.git \
-  && cd /PF_RING && git checkout $(git describe --tags $(git rev-list --tags --max-count=1)) \
-  && cd /PF_RING/kernel && make  \
-  && cd /PF_RING/userland && make
+RUN wget http://fast.dpdk.org/rel/dpdk-${DPDK_VERSION}.tar.gz \
+  && tar xvzf dpdk-${DPDK_VERSION}.tar.gz \
+  && rm -rf dpdk-${DPDK_VERSION}.tar.gz \
+  && mv dpdk-stable-${DPDK_VERSION} dpdk \
+  && cd dpdk && make config CC=gcc T=${DPDK_TARGET} \
+  && sed -i 's/CONFIG_RTE_LIBRTE_PMD_PCAP=n/CONFIG_RTE_LIBRTE_PMD_PCAP=y/g' build/.config \
+  && make CC=gcc && make install
 
 # Update python3 pip
 RUN python3 -m pip install --upgrade pip setuptools wheel

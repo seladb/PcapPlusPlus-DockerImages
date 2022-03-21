@@ -18,6 +18,7 @@ RUN apt-get update && apt-get -y install \
   libpcap-dev \
   meson \
   pkg-config \
+  python3-pip \
   tar \
   wget \
   xz-utils \
@@ -29,3 +30,6 @@ RUN wget http://fast.dpdk.org/rel/dpdk-${DPDK_VERSION}.tar.gz \
   && rm -rf dpdk-${DPDK_VERSION}.tar.gz \
   && mv dpdk-stable-${DPDK_VERSION} dpdk && cd dpdk \
   && meson build && cd build && ninja && ninja install && ldconfig
+
+# Update python3 pip
+RUN python3 -m pip install --upgrade pip setuptools wheel
