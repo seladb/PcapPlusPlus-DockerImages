@@ -17,6 +17,7 @@ RUN apt-get update && apt-get -y install \
   git \
   libpcap-dev \
   pkg-config \
+  python3-pip \
   tar \
   wget \
   xz-utils \
