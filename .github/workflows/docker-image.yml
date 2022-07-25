@@ -11,11 +11,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - image: ubuntu2004-pfring
-          - image: ubuntu2004-dpdk1811
-          - image: ubuntu2004-dpdk1911
-          - image: ubuntu2004-dpdk2011
-          - image: ubuntu2004-zstd
+          - image: ubuntu2004-dpdk2111
 
     steps:
       - name: Checkout code
@@ -25,8 +21,8 @@ jobs:
         run: |
           docker build . --file Dockerfile-${{ matrix.image }} --tag seladb/${{ matrix.image }}:latest
 
-      - name: Test PcapPlusPlus
-        run: ./test-pcapplusplus.sh ${{ matrix.image }} ${{ matrix.test-flags }}
+#      - name: Test PcapPlusPlus
+#        run: ./test-pcapplusplus.sh ${{ matrix.image }} ${{ matrix.test-flags }}
 
       - name: Push to DockerHub
         run: |
