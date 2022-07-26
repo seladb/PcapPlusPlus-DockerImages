@@ -10,7 +10,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update && apt-get -y install \
   apt-utils \
   build-essential \
-  clang-9 \
+  clang \
   cmake \
   curl \
   doxygen \
