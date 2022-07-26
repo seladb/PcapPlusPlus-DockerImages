@@ -21,8 +21,8 @@ jobs:
         run: |
           docker build . --file Dockerfile-${{ matrix.image }} --tag seladb/${{ matrix.image }}:latest
 
-#      - name: Test PcapPlusPlus
-#        run: ./test-pcapplusplus.sh ${{ matrix.image }} ${{ matrix.test-flags }}
+      - name: Test PcapPlusPlus
+        run: ./test-pcapplusplus.sh ${{ matrix.image }} ${{ matrix.test-flags }}
 
       - name: Push to DockerHub
         run: |
