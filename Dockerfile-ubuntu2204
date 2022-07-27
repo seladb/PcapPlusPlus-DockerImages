@@ -1,0 +1,31 @@
+FROM         ubuntu:22.04
+MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
+CMD          bash
+
+# Configure timezone to avoid user input during build
+ENV TZ=US/Pacific
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# Required system packages
+RUN apt-get update && apt-get -y install \
+  apt-utils \
+  build-essential \
+  cmake \
+  curl \
+  doxygen \
+  git \
+  libpcap-dev \
+  pkg-config \
+  python3-pip \
+  software-properties-common \
+  tar \
+  wget \
+  xz-utils \
+  net-tools \
+  tcpreplay
+
+RUN ln -s /usr/bin/clang-9 /usr/bin/clang \
+  && ln -s /usr/bin/clang++-9 /usr/bin/clang++
+
+# Update python3 pip
+RUN python3 -m pip install --upgrade pip setuptools wheel

@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - image: ubuntu2004-dpdk2111
+          - image: ubuntu2204
 
     steps:
       - name: Checkout code
