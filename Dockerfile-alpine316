@@ -1,0 +1,11 @@
+ARG          ALPINE_VERSION=3.16
+FROM         alpine:${ALPINE_VERSION}
+# Recall ARG to have the alpine_version in case we need it see:
+# https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
+ARG          ALPINE_VERSION
+MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
+CMD          bash
+
+# Install alpine required system packages
+ADD scripts/alpine_install.sh /
+RUN /alpine_install.sh && rm /alpine_install.sh
