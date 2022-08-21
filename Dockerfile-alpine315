@@ -1,27 +1,11 @@
-FROM         alpine:3.15
+ARG          ALPINE_VERSION=3.15
+FROM         alpine:${ALPINE_VERSION}
+# Recall ARG to have the alpine_version in case we need it see:
+# https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
+ARG          ALPINE_VERSION
 MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
 CMD          bash
 
-# Required system packages
-RUN apk add --no-cache \
-  bash \
-  clang \
-  cmake \
-  curl \
-  doxygen \
-  g++ \
-  git \
-  libpcap-dev \
-  make \
-  pkgconfig \
-  py3-pip \
-  tar \
-  wget \
-  zstd-dev \
-  py-netifaces
-
-RUN apk add tcpreplay \
-  --repository=https://dl-cdn.alpinelinux.org/alpine/edge/testing
-
-# Update python3 pip
-RUN python3 -m pip install --upgrade pip setuptools wheel
+# Install alpine required system packages
+ADD scripts/alpine_install.sh /
+RUN /alpine_install.sh && rm /alpine_install.sh
