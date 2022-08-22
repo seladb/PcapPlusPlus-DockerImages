@@ -11,7 +11,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - image: ubuntu2204
+          - image: alpine315
+          - image: alpine316
 
     steps:
       - name: Checkout code
