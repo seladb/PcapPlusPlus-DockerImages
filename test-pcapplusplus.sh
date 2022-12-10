@@ -10,12 +10,13 @@
 # exit when any command fails
 set -e
 
-# This part runs only inside the container - the script runs itelsf inside the container
+# This part runs only inside the container - the script runs itself inside the container
 if [ "$1" == "build_and_run" ]; then
     # Find the required configuration - default ,DPDK or PF_RING
     CONFIG_PARAMS="--default"
     if [ "$2" == "dpdk" ]; then
         CONFIG_PARAMS="--dpdk --dpdk-home /dpdk"
+        FLAGS="-march=native"
     else
         if [ "$2" == "pfring" ]; then
             CONFIG_PARAMS="--pf-ring --pf-ring-home /PF_RING"
@@ -30,7 +31,7 @@ if [ "$1" == "build_and_run" ]; then
     git clone http://github.com/seladb/PcapPlusPlus.git && \
     cd PcapPlusPlus && \
     ./configure-linux.sh $CONFIG_PARAMS && \
-    make all && \
+    CXXFLAGS=$FLAGS make all && \
     cd Tests/Packet++Test && Bin/Packet++Test $3 && \
     cd ../Pcap++Test && Bin/Pcap++Test -n $3 && \
     cd ../../ && make install && \
