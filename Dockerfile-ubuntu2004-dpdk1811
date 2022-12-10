@@ -18,6 +18,7 @@ RUN apt-get update && apt-get -y install \
   libnuma-dev \
   libpcap-dev \
   linux-virtual \
+  meson \
   pkg-config \
   python3-pip \
   tar \
@@ -33,10 +34,8 @@ RUN cd /lib/modules && \
 RUN wget http://fast.dpdk.org/rel/dpdk-${DPDK_VERSION}.tar.gz \
   && tar xvzf dpdk-${DPDK_VERSION}.tar.gz \
   && rm -rf dpdk-${DPDK_VERSION}.tar.gz \
-  && mv dpdk-stable-${DPDK_VERSION} dpdk \
-  && cd dpdk && make config CC=gcc T=${DPDK_TARGET} \
-  && sed -i 's/CONFIG_RTE_LIBRTE_PMD_PCAP=n/CONFIG_RTE_LIBRTE_PMD_PCAP=y/g' build/.config \
-  && make CC=gcc && make install
+  && mv dpdk-stable-${DPDK_VERSION} dpdk && cd dpdk \
+  && meson build && cd build && ninja && ninja install && ldconfig \
 
 # Update python3 pip
 RUN python3 -m pip install --upgrade pip setuptools wheel

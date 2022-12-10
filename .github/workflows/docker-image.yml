@@ -11,8 +11,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - image: alpine315
-          - image: alpine316
+          - image: dpdk1811
 
     steps:
       - name: Checkout code
