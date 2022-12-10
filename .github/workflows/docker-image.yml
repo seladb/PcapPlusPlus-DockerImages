@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - image: dpdk1811
+          - image: ubuntu2004-dpdk1811
 
     steps:
       - name: Checkout code
