@@ -13,6 +13,7 @@ jobs:
         include:
           - image: alpine315
           - image: alpine316
+          - image: alpine317
 
     steps:
       - name: Checkout code
