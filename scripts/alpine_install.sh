@@ -2,9 +2,10 @@
 
 echo "Install APK for Alpine:${ALPINE_VERSION}"
 
-apk add --no-cache \
+apk update && apk add --no-cache \
   bash \
   clang \
+  clang-extra-tools \
   cmake \
   curl \
   doxygen \
