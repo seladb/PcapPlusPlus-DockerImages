@@ -12,29 +12,31 @@ set -e
 
 # This part runs only inside the container - the script runs itelsf inside the container
 if [ "$1" == "build_and_run" ]; then
-    # Find the required configuration - default ,DPDK or PF_RING
-    CONFIG_PARAMS="--default"
+    # Find the required CMake configuration None, DPDK or PF_RING
     if [ "$2" == "dpdk" ]; then
-        CONFIG_PARAMS="--dpdk --dpdk-home /dpdk"
-    else
-        if [ "$2" == "pfring" ]; then
-            CONFIG_PARAMS="--pf-ring --pf-ring-home /PF_RING"
-        else
-            if [ "$2" == "musl" ]; then
-                CONFIG_PARAMS="--default --musl"
-            fi
-        fi
+        CONFIG_PARAMS=" -DPCAPPP_USE_DPDK=ON "
+    elif [ "$2" == "pfring" ]; then
+        CONFIG_PARAMS=" -DPCAPPP_USE_PF_RING=ON -DPF_RING_ROOT=\"/PF_RING\" "
     fi
 
     # Clone, configure, build and test PcapPlusPlus
-    git clone http://github.com/seladb/PcapPlusPlus.git && \
-    cd PcapPlusPlus && \
-    ./configure-linux.sh $CONFIG_PARAMS && \
-    make all && \
-    cd Tests/Packet++Test && Bin/Packet++Test $3 && \
-    cd ../Pcap++Test && Bin/Pcap++Test -n $3 && \
-    cd ../../ && make install && \
-    cd Examples/Tutorials/Tutorial-HelloWorld && make -f Makefile.non_windows all && ./Tutorial-HelloWorld
+    git clone http://github.com/seladb/PcapPlusPlus.git
+    cd PcapPlusPlus
+
+    # Build Pcap++
+    cmake $CONFIG_PARAMS -S . -B build
+    cmake --build build -j
+
+    # Run quick tests
+    (cd Tests/Packet++Test && Bin/Packet++Test $3)
+    (cd Tests/Pcap++Test && Bin/Pcap++Test -n $3)
+
+    # Install Pcap++
+    cmake --install build
+
+    # Build Tutorial
+    cmake -S Examples/Tutorials/Tutorial-HelloWorld/ -B build_tutorial
+    cmake --build build_tutorial
 
     # This is the end of the part that runs inside the container
     exit
@@ -60,7 +62,7 @@ trap clean_up EXIT
 CONFIG="default"
 if [[ $IMAGE == *"dpdk"* ]]; then
     CONFIG="dpdk"
-else 
+else
   if [[ $IMAGE == *"pfring"* ]]; then
     CONFIG="pfring"
   else
