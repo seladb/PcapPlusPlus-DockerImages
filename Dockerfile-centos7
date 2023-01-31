@@ -1,7 +1,7 @@
 FROM         centos:7
 MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
 CMD          bash
-ARG          PYTHON_VERSION="3.8.12"
+ARG          PYTHON_VERSION="3.8.16"
 ARG          CMAKE_VERSION="3.22.2"
 ARG          GIT_VERSION="2.35.1"
 ARG          TCPREPLAY_VERSION="4.4.1"
