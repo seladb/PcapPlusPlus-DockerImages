@@ -1,9 +1,9 @@
-FROM         fedora:29
-MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
-CMD          bash
+#!/bin/sh
+
+echo "Install DNF for Fedora:${FEDORA_VERSION}"
 
 # Required system packages
-RUN dnf upgrade -y && dnf install -y \
+dnf upgrade -y && dnf install -y \
   cmake \
   curl \
   gcc-c++ \
@@ -18,4 +18,4 @@ RUN dnf upgrade -y && dnf install -y \
   && dnf groupinstall -y 'Development Tools'
 
 # Install pytest
-RUN python3 -m pip install pytest
+python3 -m pip install pytest

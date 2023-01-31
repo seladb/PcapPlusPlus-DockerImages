@@ -16,8 +16,8 @@ jobs:
           - image: alpine317
           - image: centos7
           - image: centosstream9
-          - image: fedora29
           - image: fedora34
+          - image: fedora37
           - image: ubuntu1804
           - image: ubuntu2004
           - image: ubuntu2004-dpdk1811
