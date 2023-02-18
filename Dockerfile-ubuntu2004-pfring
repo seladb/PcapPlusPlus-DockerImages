@@ -21,6 +21,7 @@ RUN apt-get update && apt-get -y install \
   linux-virtual \
   pkg-config \
   python3-pip \
+  software-properties-common \
   tar \
   wget \
   xz-utils \
@@ -38,3 +39,8 @@ RUN git clone https://github.com/ntop/PF_RING.git \
 
 # Update python3 pip
 RUN python3 -m pip install --upgrade pip setuptools wheel
+
+# Update CMake to latest version
+RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add - \
+  && apt-add-repository 'deb https://apt.kitware.com/ubuntu/ bionic main' \
+  && apt-get update && apt-get install -y cmake

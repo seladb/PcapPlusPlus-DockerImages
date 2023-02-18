@@ -30,3 +30,8 @@ RUN ln -s /usr/bin/clang-9 /usr/bin/clang \
 
 # Update python3 pip
 RUN python3 -m pip install --upgrade pip setuptools wheel
+
+# Update CMake to latest version
+RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add - \
+  && apt-add-repository 'deb https://apt.kitware.com/ubuntu/ bionic main' \
+  && apt-get update && apt-get install -y cmake
