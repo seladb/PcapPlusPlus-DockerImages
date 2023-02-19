@@ -11,9 +11,11 @@ jobs:
     strategy:
       matrix:
         include:
-          - image: alpine315
-          - image: alpine316
           - image: alpine317
+          - image: centosstream9
+          - image: fedora34
+          - image: fedora37
+          - image: ubuntu1804
 
     steps:
       - name: Checkout code

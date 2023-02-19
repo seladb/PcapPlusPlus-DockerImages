@@ -6,5 +6,5 @@ for file in Dockerfile-*; do
 	echo "====== Building ${file}"
 	echo "==============================="
 	echo ""
-	docker build - < ${file}
+	docker build -f ${file} .
 done
