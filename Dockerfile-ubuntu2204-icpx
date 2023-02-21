@@ -24,9 +24,6 @@ RUN apt-get update && apt-get -y install \
   net-tools \
   tcpreplay
 
-RUN ln -s /usr/bin/clang-9 /usr/bin/clang \
-  && ln -s /usr/bin/clang++-9 /usr/bin/clang++
-
 # Update python3 pip
 RUN python3 -m pip install --upgrade pip setuptools wheel
 
