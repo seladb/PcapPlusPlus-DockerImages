@@ -1,0 +1,36 @@
+FROM         ubuntu:22.04
+MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
+CMD          bash
+
+# Configure timezone to avoid user input during build
+ENV TZ=US/Pacific
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# Required system packages
+RUN apt-get update && apt-get -y install \
+  apt-utils \
+  build-essential \
+  cmake \
+  curl \
+  doxygen \
+  git \
+  libpcap-dev \
+  pkg-config \
+  python3-pip \
+  software-properties-common \
+  tar \
+  wget \
+  xz-utils \
+  net-tools \
+  tcpreplay
+
+# Update python3 pip
+RUN python3 -m pip install --upgrade pip setuptools wheel
+
+# Intel LLVM based compiler
+RUN wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB \
+  | gpg --dearmor | tee /usr/share/keyrings/oneapi-archive-keyring.gpg > /dev/null \
+  && echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" \
+  | tee /etc/apt/sources.list.d/oneAPI.list \
+  && apt update && apt-get install -y intel-oneapi-compiler-dpcpp-cpp \
+  && echo "source /opt/intel/oneapi/setvars.sh" >> /root/.bashrc
