@@ -12,12 +12,8 @@ jobs:
       matrix:
         include:
           - image: centos7
-          - image: ubuntu1804
-          - image: ubuntu2004
+          - image: ubuntu2004-dpdk1811
           - image: ubuntu2004-dpdk1911
-          - image: ubuntu2004-dpdk2011
-          - image: ubuntu2004-pfring
-          - image: ubuntu2004-zstd
 
     steps:
       - name: Checkout code
