@@ -11,7 +11,11 @@ jobs:
     strategy:
       matrix:
         include:
+          - image: alpine317
           - image: centos7
+          - image: centosstream9
+          - image: fedora34
+          - image: fedora37
           - image: ubuntu2004-dpdk1811
           - image: ubuntu2004-dpdk1911
 
