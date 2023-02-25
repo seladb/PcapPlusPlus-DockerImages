@@ -18,6 +18,7 @@ RUN apt-get update && apt-get -y install \
   libpcap-dev \
   pkg-config \
   python3-pip \
+  software-properties-common \
   tar \
   wget \
   xz-utils \
@@ -30,3 +31,8 @@ RUN wget https://github.com/facebook/zstd/releases/download/v${ZSTD_VERSION}/zst
   && cd zstd-${ZSTD_VERSION} && make install \
   && cd .. && rm -rf zstd-${ZSTD_VERSION} \
   && echo "/usr/local/lib" >> /etc/ld.so.conf
+
+# Update CMake to latest version
+RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add - \
+  && apt-add-repository 'deb https://apt.kitware.com/ubuntu/ bionic main' \
+  && apt-get update && apt-get install -y cmake

@@ -35,8 +35,7 @@ RUN cd /opt && wget https://github.com/appneta/tcpreplay/releases/download/v${TC
 RUN cd /opt && wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz \
   && tar xzf Python-${PYTHON_VERSION}.tgz \
   && cd /opt/Python-${PYTHON_VERSION} && ./configure --enable-optimizations && make install \
-  && rm -rf /opt/Python-${PYTHON_VERSION}.tgz /opt/Python-${PYTHON_VERSION} \
-  && ln -sf /usr/bin/python3.8 /usr/bin/python3
+  && rm -rf /opt/Python-${PYTHON_VERSION}.tgz /opt/Python-${PYTHON_VERSION}
 
 RUN python3 -m pip install --upgrade pip setuptools wheel pytest
 
