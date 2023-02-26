@@ -9,19 +9,20 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     strategy:
+      fail-fast: false
       matrix:
         include:
+          - image: alpine317
           - image: centos7
-          - image: ubuntu1804
-          - image: ubuntu2004
+          - image: centosstream9
+          - image: fedora34
+          - image: fedora37
+          - image: ubuntu2004-dpdk1811
           - image: ubuntu2004-dpdk1911
-          - image: ubuntu2004-dpdk2011
-          - image: ubuntu2004-pfring
-          - image: ubuntu2004-zstd
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Build image
         run: |
