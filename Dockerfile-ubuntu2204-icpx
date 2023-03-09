@@ -15,6 +15,7 @@ RUN apt-get update && apt-get -y install \
   doxygen \
   git \
   libpcap-dev \
+  llvm \
   pkg-config \
   python3-pip \
   software-properties-common \
@@ -22,8 +23,7 @@ RUN apt-get update && apt-get -y install \
   wget \
   xz-utils \
   net-tools \
-  tcpreplay \
-  llvm
+  tcpreplay
 
 # Update python3 pip
 RUN python3 -m pip install --upgrade pip setuptools wheel
