@@ -15,6 +15,7 @@ RUN apt-get update && apt-get -y install \
   doxygen \
   git \
   libpcap-dev \
+  llvm \
   pkg-config \
   python3-pip \
   software-properties-common \
