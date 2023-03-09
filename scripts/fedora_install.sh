@@ -11,6 +11,8 @@ dnf upgrade -y && dnf install -y \
   libpcap-devel \
   libstdc++-static \
   pkg-config \
+  python3-devel \
+  python3-pip \
   unzip \
   wget \
   net-tools \

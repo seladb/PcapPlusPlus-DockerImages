@@ -9,13 +9,15 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     strategy:
+      fail-fast: false
       matrix:
         include:
-          - image: ubuntu2204-icpx
+          - image: fedora34
+          - image: fedora37
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Build image
         run: |

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Usage:
 # ------
 # ./test-pcapplusplus.sh IMAGE [OPTIONAL_TEST_PARAMS]
@@ -14,9 +16,9 @@ set -e
 if [ "$1" == "build_and_run" ]; then
     # Find the required CMake configuration None, DPDK or PF_RING
     if [ "$2" == "dpdk" ]; then
-        CONFIG_PARAMS=" -DPCAPPP_USE_DPDK=ON "
+        CONFIG_PARAMS=("-D PCAPPP_USE_DPDK=ON")
     elif [ "$2" == "pfring" ]; then
-        CONFIG_PARAMS=" -DPCAPPP_USE_PF_RING=ON -DPF_RING_ROOT=\"/PF_RING\" "
+        CONFIG_PARAMS=("-D PCAPPP_USE_PF_RING=ON" "-D PF_RING_ROOT='/PF_RING'")
     fi
 
     # Clone, configure, build and test PcapPlusPlus
@@ -24,7 +26,7 @@ if [ "$1" == "build_and_run" ]; then
     cd PcapPlusPlus
 
     # Build Pcap++
-    cmake $CONFIG_PARAMS -S . -B build
+    cmake ${CONFIG_PARAMS[@]} -S . -B build
     cmake --build build -j
 
     # Run quick tests
@@ -35,8 +37,8 @@ if [ "$1" == "build_and_run" ]; then
     cmake --install build
 
     # Build Tutorial
-    cmake -S Examples/Tutorials/Tutorial-HelloWorld/ -B build_tutorial
-    cmake --build build_tutorial
+    cmake ${CONFIG_PARAMS[@]} -S Examples/Tutorials/Tutorial-HelloWorld/ -B build_tutorial
+    cmake --build build_tutorial -j
 
     # This is the end of the part that runs inside the container
     exit
@@ -62,14 +64,8 @@ trap clean_up EXIT
 CONFIG="default"
 if [[ $IMAGE == *"dpdk"* ]]; then
     CONFIG="dpdk"
-else
-  if [[ $IMAGE == *"pfring"* ]]; then
+elif [[ $IMAGE == *"pfring"* ]]; then
     CONFIG="pfring"
-  else
-    if [[ $IMAGE == *"alpine"* ]]; then
-        CONFIG="musl"
-    fi
-  fi
 fi
 
 # Run this script inside the container with a special "build_and_run" argument
