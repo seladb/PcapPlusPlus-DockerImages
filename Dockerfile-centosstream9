@@ -18,7 +18,7 @@ RUN yum install --enablerepo=crb --allowerasing -y \
   openssl-devel \
   pkg-config \
   python3-pip \
-  rpmbuild \
+  rpm-build \
   unzip \
   wget \
   zlib-devel
