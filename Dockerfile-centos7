@@ -36,7 +36,7 @@ RUN cd /opt && wget https://github.com/appneta/tcpreplay/releases/download/v${TC
 # Install Python 3.8
 RUN cd /opt && wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz \
   && tar xzf Python-${PYTHON_VERSION}.tgz \
-  && cd /opt/Python-${PYTHON_VERSION} && ./configure --enable-optimizations \
+  && cd /opt/Python-${PYTHON_VERSION} && ./configure \
   && make -j$(nproc) && make install \
   && rm -rf /opt/Python-${PYTHON_VERSION}.tgz /opt/Python-${PYTHON_VERSION}
 
