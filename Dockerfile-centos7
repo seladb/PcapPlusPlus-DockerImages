@@ -18,12 +18,13 @@ RUN yum upgrade -y && yum install -y \
   libpcap-devel \
   libstdc++-static \
   make \
+  net-tools \
   openssl-devel \
   pkg-config \
+  rpmbuild \
   unzip \
   wget \
-  zlib-devel \
-  net-tools
+  zlib-devel
 
 # Install tcpreplay
 RUN cd /opt && wget https://github.com/appneta/tcpreplay/releases/download/v${TCPREPLAY_VERSION}/tcpreplay-${TCPREPLAY_VERSION}.tar.gz \
