@@ -12,7 +12,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - image: ubuntu2204-icpx
+          - image: centos7
+          - image: centosstream9
 
     steps:
       - name: Checkout code
