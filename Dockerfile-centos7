@@ -40,7 +40,7 @@ RUN cd /opt && wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-$
   && make -j$(nproc) && make install \
   && rm -rf /opt/Python-${PYTHON_VERSION}.tgz /opt/Python-${PYTHON_VERSION}
 
-RUN python3 -m pip install --upgrade pip setuptools wheel pytest
+RUN python3.8 -m pip install --upgrade pip setuptools wheel pytest
 
 # Install Recent Cmake
 RUN wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz \
