@@ -18,12 +18,13 @@ RUN yum upgrade -y && yum install -y \
   libpcap-devel \
   libstdc++-static \
   make \
+  net-tools \
   openssl-devel \
   pkg-config \
+  rpmbuild \
   unzip \
   wget \
-  zlib-devel \
-  net-tools
+  zlib-devel
 
 # Install tcpreplay
 RUN cd /opt && wget https://github.com/appneta/tcpreplay/releases/download/v${TCPREPLAY_VERSION}/tcpreplay-${TCPREPLAY_VERSION}.tar.gz \
@@ -35,11 +36,11 @@ RUN cd /opt && wget https://github.com/appneta/tcpreplay/releases/download/v${TC
 # Install Python 3.8
 RUN cd /opt && wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz \
   && tar xzf Python-${PYTHON_VERSION}.tgz \
-  && cd /opt/Python-${PYTHON_VERSION} && ./configure --enable-optimizations \
+  && cd /opt/Python-${PYTHON_VERSION} && ./configure \
   && make -j$(nproc) && make install \
   && rm -rf /opt/Python-${PYTHON_VERSION}.tgz /opt/Python-${PYTHON_VERSION}
 
-RUN python3 -m pip install --upgrade pip setuptools wheel pytest
+RUN python3.8 -m pip install --upgrade pip setuptools wheel pytest
 
 # Install Recent Cmake
 RUN wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz \
