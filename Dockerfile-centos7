@@ -20,8 +20,8 @@ RUN yum upgrade -y && yum install -y \
   make \
   net-tools \
   openssl-devel \
-  pkg-config \
-  rpmbuild \
+  pkgconfig \
+  rpm-build \
   unzip \
   wget \
   zlib-devel
