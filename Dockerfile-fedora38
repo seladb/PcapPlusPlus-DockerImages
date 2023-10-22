@@ -1,4 +1,4 @@
-ARG          FEDORA_VERSION=34
+ARG          FEDORA_VERSION=38
 FROM         fedora:${FEDORA_VERSION}
 # Recall ARG to have the FEDORA_version in case we need it see:
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
