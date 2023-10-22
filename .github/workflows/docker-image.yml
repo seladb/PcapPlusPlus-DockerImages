@@ -13,8 +13,6 @@ jobs:
       matrix:
         include:
           - image: ubuntu2204-dpdk2211
-          - image: ubuntu2004-dpdk2111
-          - image: ubuntu2004-dpdk2011
 
     steps:
       - name: Checkout code
