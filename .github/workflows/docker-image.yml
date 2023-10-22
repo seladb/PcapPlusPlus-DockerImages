@@ -12,9 +12,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - image: ubuntu2204-dpdk2211
-          - image: ubuntu2004-dpdk2111
-          - image: ubuntu2004-dpdk2011
+          - image: alpine318
+          - image: fedora38
 
     steps:
       - name: Checkout code
@@ -25,7 +24,6 @@ jobs:
           docker build . --file Dockerfile-${{ matrix.image }} --tag seladb/${{ matrix.image }}:latest
 
       - name: Test PcapPlusPlus
-        if: ${{ false }}
         run: ./test-pcapplusplus.sh ${{ matrix.image }} ${{ matrix.test-flags }}
 
       - name: Push to DockerHub
