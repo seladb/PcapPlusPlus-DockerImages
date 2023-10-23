@@ -1,4 +1,4 @@
-ARG          ALPINE_VERSION=3.15
+ARG          ALPINE_VERSION=3.18
 FROM         alpine:${ALPINE_VERSION}
 # Recall ARG to have the alpine_version in case we need it see:
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
