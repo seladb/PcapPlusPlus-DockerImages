@@ -1,4 +1,5 @@
 #!/bin/sh
+CMAKE_VERSION="3.28.3"
 
 echo "Install DNF for RedHat Enterprise Linux:${RHEL_VERSION}"
 
@@ -27,3 +28,11 @@ dnf upgrade -y && dnf install -y --allowerasing \
 
 # Install pytest
 python3 -m pip install pytest
+
+# Update CMake (3.22+ required for packaging)
+wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz \
+	&& tar xzf cmake-${CMAKE_VERSION}.tar.gz \
+	&& cd cmake-${CMAKE_VERSION} \
+	&& ./bootstrap --prefix=/usr/local \
+	&& make -j$(nproc) && make install \
+	&& cd .. && rm -rf cmake-${CMAKE_VERSION}*
