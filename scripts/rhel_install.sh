@@ -17,6 +17,7 @@ dnf upgrade -y && dnf install -y --allowerasing \
   git \
   libpcap-devel \
   libstdc++-static \
+  openssl-devel \
   pkg-config \
   python3-devel \
   python3-pip \
