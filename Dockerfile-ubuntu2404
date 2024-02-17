@@ -1,5 +1,5 @@
 FROM         ubuntu:24.04
-LABEL org.opencontainers.image.authors="PcapPlusPlus <pcapplusplus@gmail.com>"
+LABEL        org.opencontainers.image.authors="PcapPlusPlus <pcapplusplus@gmail.com>"
 CMD          bash
 
 # Configure timezone to avoid user input during build
