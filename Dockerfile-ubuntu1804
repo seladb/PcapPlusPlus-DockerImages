@@ -1,5 +1,5 @@
 FROM         ubuntu:18.04
-MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
+LABEL        org.opencontainers.image.authors="PcapPlusPlus <pcapplusplus@gmail.com>"
 CMD          bash
 
 # Required system packages

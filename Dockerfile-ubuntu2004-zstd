@@ -1,5 +1,5 @@
 FROM         ubuntu:20.04
-MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
+LABEL        org.opencontainers.image.authors="PcapPlusPlus <pcapplusplus@gmail.com>"
 CMD          bash
 ARG          ZSTD_VERSION="1.5.2"
 
