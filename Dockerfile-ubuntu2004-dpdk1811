@@ -1,5 +1,5 @@
 FROM         ubuntu:20.04
-MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
+LABEL org.opencontainers.image.authors="PcapPlusPlus <pcapplusplus@gmail.com>"
 CMD          bash
 ARG          DPDK_VERSION="18.11.11"
 ARG          DPDK_TARGET="x86_64-native-linuxapp-gcc"
