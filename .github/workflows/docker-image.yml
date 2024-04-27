@@ -12,10 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - image: alpine317
-          - image: alpine318
-          - image: alpine319
-          - image: ubuntu2404
+          - image: fedora40
 
     steps:
       - name: Checkout code
