@@ -3,7 +3,7 @@ FROM         redhat/ubi9:${RHEL_VERSION}
 # Recall ARG to have the RHEL_version in case we need it see:
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG          RHEL_VERSION
-MAINTAINER   PcapPlusPlus <pcapplusplus@gmail.com>
+LABEL        org.opencontainers.image.authors="PcapPlusPlus <pcapplusplus@gmail.com>"
 CMD          bash
 
 # Install RHEL required system packages

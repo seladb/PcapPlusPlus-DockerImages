@@ -22,5 +22,3 @@ apk update && apk add --no-cache \
 
 apk add tcpreplay \
     --repository=https://dl-cdn.alpinelinux.org/alpine/edge/testing
-
-python3 -m pip install --upgrade pip setuptools wheel
