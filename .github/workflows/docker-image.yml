@@ -15,6 +15,7 @@ jobs:
           - image: alpine317
           - image: alpine318
           - image: alpine319
+          - image: ubuntu2404
 
     steps:
       - name: Checkout code
