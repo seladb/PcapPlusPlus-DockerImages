@@ -12,7 +12,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - image: fedora39
+          - image: alpine317
+          - image: alpine318
           - image: alpine319
 
     steps:

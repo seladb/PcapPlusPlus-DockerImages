@@ -21,4 +21,4 @@ apk update && apk add --no-cache \
   zstd-dev
 
 apk add tcpreplay \
-    --repository=https://dl-cdn.alpinelinux.org/alpine/edge/testing
+    --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community
