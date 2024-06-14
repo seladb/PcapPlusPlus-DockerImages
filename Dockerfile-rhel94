@@ -1,4 +1,4 @@
-ARG          RHEL_VERSION=9.3
+ARG          RHEL_VERSION=9.4
 FROM         redhat/ubi9:${RHEL_VERSION}
 # Recall ARG to have the RHEL_version in case we need it see:
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
