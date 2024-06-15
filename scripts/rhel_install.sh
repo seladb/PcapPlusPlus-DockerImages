@@ -1,11 +1,18 @@
 #!/bin/sh
+set -e
+
 echo "Install DNF for RedHat Enterprise Linux:${RHEL_VERSION}"
+
+if [ -z "${REDHAT_USERNAME}" ] || [ -z "${REDHAT_PASSWORD}" ]; then
+  echo "Error: REDHAT_USERNAME and REDHAT_PASSWORD must be set."
+  exit 1
+fi
+
+# Register the system with Red Hat Subscription Management
+subscription-manager register --username "${REDHAT_USERNAME}" --password "${REDHAT_PASSWORD}" --auto-attach
 
 # Install Extra Packages for Enterprise Linux (EPEL)
 dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
-
-# TCPDump not present on RHEL? required by tcpreplay
-dnf install -y https://dl.rockylinux.org/pub/rocky/9/AppStream/$(arch)/os/Packages/t/tcpdump-4.99.0-9.el9.$(arch).rpm
 
 # Required system packages
 dnf upgrade --refresh -y \
@@ -26,4 +33,8 @@ dnf upgrade --refresh -y \
   tcpreplay
 
 # Install pytest
-python3 -m pip install pytest
+python3 -m pip install -U pip pytest
+
+# Clean up sensitive information after use
+subscription-manager unregister
+subscription-manager clean
