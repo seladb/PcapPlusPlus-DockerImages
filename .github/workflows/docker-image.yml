@@ -18,7 +18,6 @@ jobs:
           - image: fedora39
           - image: fedora40
           - image: rhel94
-          - image: ubuntu1804
           - image: ubuntu2004
           - image: ubuntu2004-dpdk1811
           - image: ubuntu2004-dpdk1911
