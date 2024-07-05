@@ -4,6 +4,7 @@ echo "Install DNF for Fedora:${FEDORA_VERSION}"
 
 # Required system packages
 dnf upgrade -y && dnf install -y \
+  ccache \
   cmake \
   curl \
   gcc-c++ \
