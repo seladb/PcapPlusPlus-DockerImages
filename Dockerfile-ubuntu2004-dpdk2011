@@ -12,6 +12,7 @@ RUN apt-get update && apt-get -y install \
   apt-utils \
   build-essential \
   cmake \
+  ccache \
   curl \
   git \
   libnuma-dev \

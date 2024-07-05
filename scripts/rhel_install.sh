@@ -17,6 +17,7 @@ dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarc
 # Required system packages
 dnf upgrade --refresh -y \
  && dnf install -y --allowerasing \
+  ccache \
   cmake \
   curl \
   gcc-c++ \

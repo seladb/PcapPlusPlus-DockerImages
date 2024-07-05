@@ -11,6 +11,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update && apt-get -y install \
   apt-utils \
   build-essential \
+  ccache \
   cmake \
   curl \
   doxygen \
@@ -31,6 +32,9 @@ RUN wget https://github.com/facebook/zstd/releases/download/v${ZSTD_VERSION}/zst
   && cd zstd-${ZSTD_VERSION} && make install \
   && cd .. && rm -rf zstd-${ZSTD_VERSION} \
   && echo "/usr/local/lib" >> /etc/ld.so.conf
+
+# Update python3 pip
+RUN python3 -m pip install --upgrade pip setuptools wheel
 
 # Update CMake to latest version
 RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add - \

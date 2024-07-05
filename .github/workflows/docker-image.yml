@@ -12,7 +12,23 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - image: alpine318
+          - image: alpine319
+          - image: fedora38
+          - image: fedora39
+          - image: fedora40
           - image: rhel94
+          - image: ubuntu2004
+          - image: ubuntu2004-dpdk1811
+          - image: ubuntu2004-dpdk1911
+          - image: ubuntu2004-dpdk2011
+          - image: ubuntu2004-dpdk2111
+          - image: ubuntu2004-pfring
+          - image: ubuntu2004-zstd
+          - image: ubuntu2204
+          - image: ubuntu2204-dpdk2211
+          - image: ubuntu2204-icpx
+          - image: ubuntu2404
 
     steps:
       - name: Checkout code

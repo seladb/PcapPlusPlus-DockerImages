@@ -12,6 +12,7 @@ RUN apt-get update && apt-get -y install \
   bison \
   build-essential \
   byacc \
+  ccache \
   cmake \
   curl \
   flex \
