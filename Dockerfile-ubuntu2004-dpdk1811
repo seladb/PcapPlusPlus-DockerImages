@@ -25,7 +25,9 @@ RUN apt-get update && apt-get -y install \
   wget \
   xz-utils \
   net-tools \
-  tcpreplay
+  tcpreplay \
+  python3-venv \
+  python3-dev
 
 # Create link to /lib/modules for this kernel
 RUN cd /lib/modules && \

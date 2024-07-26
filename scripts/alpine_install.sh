@@ -20,6 +20,13 @@ apk update && apk add --no-cache \
   tar \
   wget \
   zstd-dev
+  python3 \
+  py3-virtualenv \
+  python3-dev \
+  gcc \
+  musl \
+  dev \
+  linux-headers
 
 apk add tcpreplay \
     --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community

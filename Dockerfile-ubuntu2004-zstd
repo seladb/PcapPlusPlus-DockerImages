@@ -24,7 +24,9 @@ RUN apt-get update && apt-get -y install \
   wget \
   xz-utils \
   net-tools \
-  tcpreplay
+  tcpreplay \
+  python3-venv \
+  python3-dev
 
 # Install Zstd
 RUN wget https://github.com/facebook/zstd/releases/download/v${ZSTD_VERSION}/zstd-${ZSTD_VERSION}.tar.gz \
