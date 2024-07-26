@@ -31,8 +31,7 @@ dnf upgrade --refresh -y \
   unzip \
   wget \
   net-tools \
-  tcpreplay \ 
-  python3-virtualenv
+  tcpreplay
 
 # Install pytest
 python3 -m pip install -U pip pytest
