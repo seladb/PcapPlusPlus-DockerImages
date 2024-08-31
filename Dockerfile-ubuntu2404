@@ -15,6 +15,7 @@ RUN apt-get update && apt-get -y install \
   curl \
   doxygen \
   git \
+  libbenchmark-dev \
   libpcap-dev \
   pkg-config \
   python3-pip \
