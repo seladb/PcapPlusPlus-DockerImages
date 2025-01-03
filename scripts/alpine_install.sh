@@ -6,7 +6,6 @@ apk update && apk add --no-cache \
   bash \
   ccache \
   clang \
-  clang-extra-tools \
   cmake \
   curl \
   doxygen \
