@@ -1,0 +1,42 @@
+FROM         ubuntu:24.04
+LABEL        org.opencontainers.image.authors="PcapPlusPlus <pcapplusplus@gmail.com>"
+CMD          bash
+ARG          DPDK_VERSION="24.11.1"
+
+# Configure timezone to avoid user input during build
+ENV TZ=US/Pacific
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# Required system packages
+RUN apt-get update && apt-get -y install \
+  apt-utils \
+  build-essential \
+  ccache \
+  cmake \
+  curl \
+  git \
+  libnuma-dev \
+  libpcap-dev \
+  meson \
+  pkg-config \
+  python3-pip \
+  tar \
+  wget \
+  xz-utils \
+  net-tools \
+  tcpreplay \
+  python3-venv \
+  python3-dev \
+  kmod
+
+RUN python3 -m venv .venv \
+  && . .venv/bin/activate \
+  && python3 -m pip install --upgrade pip setuptools wheel \
+  && pip install pyelftools
+
+RUN . .venv/bin/activate \
+  && wget http://fast.dpdk.org/rel/dpdk-${DPDK_VERSION}.tar.gz \
+  && tar xvzf dpdk-${DPDK_VERSION}.tar.gz \
+  && rm -rf dpdk-${DPDK_VERSION}.tar.gz \
+  && mv dpdk-stable-${DPDK_VERSION} dpdk && cd dpdk \
+  && meson build && cd build && ninja && ninja install && ldconfig
