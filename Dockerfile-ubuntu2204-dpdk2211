@@ -1,7 +1,7 @@
 FROM         ubuntu:22.04
 LABEL        org.opencontainers.image.authors="PcapPlusPlus <pcapplusplus@gmail.com>"
 CMD          bash
-ARG          DPDK_VERSION="22.11.3"
+ARG          DPDK_VERSION="22.11.8"
 
 # Configure timezone to avoid user input during build
 ENV TZ=US/Pacific

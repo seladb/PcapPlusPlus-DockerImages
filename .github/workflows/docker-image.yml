@@ -14,6 +14,7 @@ jobs:
         include:
           - image: ubuntu2404-dpdk2311
           - image: ubuntu2404-dpdk2411
+          - image: ubuntu2204-dpdk2211
           #- image: alpine319
           #- image: alpine320
           #- image: fedora38
