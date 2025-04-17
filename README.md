@@ -20,6 +20,8 @@ Maintained images (can be updated by CI)
 - Ubuntu 20.04 with the latest version of PF_RING
 - Ubuntu 20.04 with Zstd v1.5.2
 - Ubuntu 22.04
+- Ubuntu 24.04
+- Ubuntu 24.04 ARM64
 
 Legacy images (cannot or shouldn't be updated by CI)
 - CentOS 8
