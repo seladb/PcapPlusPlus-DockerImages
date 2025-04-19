@@ -7,28 +7,35 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runner }}
     strategy:
       fail-fast: false
       matrix:
         include:
-          - image: ubuntu2404-dpdk2311
-          - image: ubuntu2404-dpdk2411
-          - image: ubuntu2204-dpdk2211
-          #- image: alpine319
-          #- image: alpine320
-          #- image: fedora38
-          #- image: fedora38
-          #- image: fedora39
-          #- image: fedora40
-          #- image: rhel94
-          #- image: ubuntu2004
-          #- image: ubuntu2004-pfring
-          #- image: ubuntu2004-zstd
-          #- image: ubuntu2204
-          #- image: ubuntu2204-dpdk2211
-          #- image: ubuntu2204-icpx
-          #- image: ubuntu2404
+          - runner: ubuntu-latest
+            image: ubuntu2404-dpdk2311
+          - runner: ubuntu-latest
+            image: ubuntu2404-dpdk2411
+          - runner: ubuntu-latest
+            image: ubuntu2204-dpdk2211
+          #- runner: ubuntu-latest
+          #  image: ubuntu2404
+          #- runner: ubuntu-24.04-arm
+          #  image: ubuntu2404-arm64
+          #- runner: ubuntu-latest
+          #  image: alpine319
+          #- runner: ubuntu-latest
+          #  image: alpine320
+          #- runner: ubuntu-latest
+          #  image: fedora38
+          #- runner: ubuntu-latest
+          #  image: fedora38
+          #- runner: ubuntu-latest
+          #  image: fedora39
+          #  runner: ubuntu-latest
+          #  image: fedora40
+          #- runner: ubuntu-latest
+          #  image: rhel94
 
     steps:
       - name: Checkout code

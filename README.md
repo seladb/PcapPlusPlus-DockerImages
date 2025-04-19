@@ -19,6 +19,7 @@ Maintained images (can be updated by CI)
 - Ubuntu 22.04 with ICPX
 - Ubuntu 22.04 with DPDK 22.11
 - Ubuntu 24.04
+- Ubuntu 24.04 ARM64
 - Ubuntu 24.04 with DPDK 23.11
 - Ubuntu 24.04 with DPDK 24.11
 
