@@ -13,9 +13,15 @@ jobs:
       matrix:
         include:
           - runner: ubuntu-latest
-            image: ubuntu2404
-          - runner: ubuntu-24.04-arm
-            image: ubuntu2404-arm64
+            image: ubuntu2404-dpdk2311
+          - runner: ubuntu-latest
+            image: ubuntu2404-dpdk2411
+          - runner: ubuntu-latest
+            image: ubuntu2204-dpdk2211
+          #- runner: ubuntu-latest
+          #  image: ubuntu2404
+          #- runner: ubuntu-24.04-arm
+          #  image: ubuntu2404-arm64
           #- runner: ubuntu-latest
           #  image: alpine319
           #- runner: ubuntu-latest

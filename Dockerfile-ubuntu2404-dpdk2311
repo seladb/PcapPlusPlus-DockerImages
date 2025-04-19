@@ -1,7 +1,7 @@
-FROM         ubuntu:22.04
+FROM         ubuntu:24.04
 LABEL        org.opencontainers.image.authors="PcapPlusPlus <pcapplusplus@gmail.com>"
 CMD          bash
-ARG          DPDK_VERSION="22.11.8"
+ARG          DPDK_VERSION="23.11.3"
 
 # Configure timezone to avoid user input during build
 ENV TZ=US/Pacific
@@ -26,10 +26,10 @@ RUN apt-get update && apt-get -y install \
   net-tools \
   tcpreplay \
   python3-venv \
-  python3-dev
+  python3-dev \
+  kmod
 
-# Update python3 pip
-RUN python3 -m pip install --upgrade pip setuptools wheel && pip install pyelftools
+RUN pip install --break-system-packages pyelftools
 
 RUN wget http://fast.dpdk.org/rel/dpdk-${DPDK_VERSION}.tar.gz \
   && tar xvzf dpdk-${DPDK_VERSION}.tar.gz \

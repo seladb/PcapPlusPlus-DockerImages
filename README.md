@@ -7,25 +7,31 @@ This repo contains docker files and scripts to build docker images that are used
 Docker image inventory:
 
 Maintained images (can be updated by CI)
-- Alpine 3.15
 - CentOS 7
 - CentOS Stream 9
-- Fedora 29
-- Fedora 34
-- Ubuntu 18.04
+- Alpine 3.20
+- Fedora 40
+- RHEL 9.4
 - Ubuntu 20.04
-- Ubuntu 20.04 with DPDK 19.11
-- Ubuntu 20.04 with DPDK 20.11
-- Ubuntu 20.04 with DPDK 21.11
 - Ubuntu 20.04 with the latest version of PF_RING
 - Ubuntu 20.04 with Zstd v1.5.2
 - Ubuntu 22.04
+- Ubuntu 22.04 with ICPX
+- Ubuntu 22.04 with DPDK 22.11
 - Ubuntu 24.04
 - Ubuntu 24.04 ARM64
+- Ubuntu 24.04 with DPDK 23.11
+- Ubuntu 24.04 with DPDK 24.11
 
 Legacy images (cannot or shouldn't be updated by CI)
 - CentOS 8
 - Fedora 26
+- Fedora 29
+- Fedora 34
+- Fedora 38
+- Fedora 39
+- Alpine 3.15
+- Alpine 3.19
 - Ubuntu 14.04
 - Ubuntu 16.04
 - Ubuntu 16.04 with DPDK 16.11
@@ -35,8 +41,13 @@ Legacy images (cannot or shouldn't be updated by CI)
 - Ubuntu 16.04 with DPDK 19.02
 - Ubuntu 16.04 with DPDK 19.08
 - Ubuntu 16.04 with latest version of PF_RING
+- Ubuntu 18.04
 - Ubuntu 18.04 with DPDK 19.11
 - Ubuntu 18.04 with Zstd v1.4.4
+- Ubuntu 20.04 with DPDK 19.11
+- Ubuntu 20.04 with DPDK 20.11
+- Ubuntu 20.04 with DPDK 21.11
+
 
 GitHub Actions is used for building the docker images automatically and push them to Docker Hub.
 
