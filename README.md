@@ -10,7 +10,7 @@ Maintained images (can be updated by CI)
 - CentOS 7
 - CentOS Stream 9
 - Alpine 3.20
-- Fedora 40
+- Fedora 42
 - RHEL 9.4
 - Ubuntu 20.04
 - Ubuntu 20.04 with the latest version of PF_RING
@@ -30,6 +30,7 @@ Legacy images (cannot or shouldn't be updated by CI)
 - Fedora 34
 - Fedora 38
 - Fedora 39
+- Fedora 40
 - Alpine 3.15
 - Alpine 3.19
 - Ubuntu 14.04

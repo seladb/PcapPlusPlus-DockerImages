@@ -22,7 +22,7 @@ if [ "$1" == "build_and_run" ]; then
     fi
 
     # Clone, configure, build and test PcapPlusPlus
-    git clone http://github.com/seladb/PcapPlusPlus.git
+    git clone -b fix-error-in-gcc15 http://github.com/seladb/PcapPlusPlus.git
     cd PcapPlusPlus
 
     # Build Pcap++
