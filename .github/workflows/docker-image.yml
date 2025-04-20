@@ -12,12 +12,14 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - runner: ubuntu-latest
-            image: ubuntu2404-dpdk2311
-          - runner: ubuntu-latest
-            image: ubuntu2404-dpdk2411
-          - runner: ubuntu-latest
-            image: ubuntu2204-dpdk2211
+           - runner: ubuntu-latest
+             image: fedora42
+          #- runner: ubuntu-latest
+          #  image: ubuntu2404-dpdk2311
+          #- runner: ubuntu-latest
+          #  image: ubuntu2404-dpdk2411
+          #- runner: ubuntu-latest
+          #  image: ubuntu2204-dpdk2211
           #- runner: ubuntu-latest
           #  image: ubuntu2404
           #- runner: ubuntu-24.04-arm
