@@ -19,6 +19,7 @@ dnf upgrade -y && dnf install -y \
   net-tools \
   tcpreplay \
   python3-virtualenv \
+  gawk \
   && dnf groupinstall -y 'Development Tools'
 
 # Install pytest
