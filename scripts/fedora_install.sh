@@ -7,6 +7,7 @@ dnf upgrade -y && dnf install -y \
   ccache \
   cmake \
   curl \
+  gawk \
   gcc-c++ \
   git \
   libpcap-devel \
