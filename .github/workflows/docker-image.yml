@@ -13,9 +13,11 @@ jobs:
       matrix:
         include:
           - runner: ubuntu-latest
-            image: ubuntu2004
-          - runner: ubuntu-latest
-            image: ubuntu2004-zstd
+            image: ubuntu2604
+          #- runner: ubuntu-latest
+          #  image: ubuntu2004
+          #- runner: ubuntu-latest
+          #  image: ubuntu2004-zstd
           #- runner: ubuntu-latest
           #  image: ubuntu2404-dpdk2311
           #- runner: ubuntu-latest
