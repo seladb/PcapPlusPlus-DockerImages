@@ -30,8 +30,8 @@ if [ "$1" == "build_and_run" ]; then
     cmake --build build -j
 
     # Run quick tests
-    (cd Tests/Packet++Test && Bin/Packet++Test $3)
-    (cd Tests/Pcap++Test && Bin/Pcap++Test -n $3)
+    (cd build/Tests/Packet++Test && ./Packet++Test $3)
+    (cd build/Tests/Pcap++Test && ./Pcap++Test -n $3)
 
     # Install Pcap++
     cmake --install build
