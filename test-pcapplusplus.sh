@@ -12,7 +12,7 @@
 # exit when any command fails
 set -e
 
-# This part runs only inside the container - the script runs itelsf inside the container
+# This part runs only inside the container - the script runs itself inside the container
 if [ "$1" == "build_and_run" ]; then
     # Find the required CMake configuration None, DPDK or PF_RING
     if [ "$2" == "dpdk" ]; then
