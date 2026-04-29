@@ -14,6 +14,9 @@ jobs:
         include:
           - runner: ubuntu-latest
             image: ubuntu2604
+          - runner: ubuntu-latest
+            image: ubuntu2604-pfring
+            test-flags: pfring
           #- runner: ubuntu-latest
           #  image: ubuntu2004
           #- runner: ubuntu-latest
