@@ -18,13 +18,12 @@ apk update && apk add --no-cache \
   py3-pip \
   tar \
   wget \
-  zstd-dev
+  zstd-dev \
   python3 \
   py3-virtualenv \
   python3-dev \
   gcc \
   musl \
-  dev \
   gpg \
   linux-headers
 
