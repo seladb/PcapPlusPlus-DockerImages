@@ -13,10 +13,12 @@ jobs:
       matrix:
         include:
           - runner: ubuntu-latest
-            image: ubuntu2604
-          - runner: ubuntu-latest
-            image: ubuntu2604-pfring
-            test-flags: pfring
+            image: alpine320
+          #- runner: ubuntu-latest
+          #  image: ubuntu2604
+          #- runner: ubuntu-latest
+          #  image: ubuntu2604-pfring
+          #  test-flags: pfring
           #- runner: ubuntu-latest
           #  image: ubuntu2004
           #- runner: ubuntu-latest
@@ -33,8 +35,6 @@ jobs:
           #  image: ubuntu2404-arm64
           #- runner: ubuntu-latest
           #  image: alpine319
-          #- runner: ubuntu-latest
-          #  image: alpine320
           #- runner: ubuntu-latest
           #  image: fedora38
           #- runner: ubuntu-latest
