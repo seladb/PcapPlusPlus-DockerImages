@@ -25,6 +25,7 @@ apk update && apk add --no-cache \
   gcc \
   musl \
   dev \
+  gpg \
   linux-headers
 
 apk add tcpreplay \
