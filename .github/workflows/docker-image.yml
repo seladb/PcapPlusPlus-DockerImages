@@ -12,8 +12,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - runner: ubuntu-26.04-arm
+            image: ubuntu2604-arm64
           - runner: ubuntu-latest
-            image: alpine320
+            image: ubuntu2604-icpx
+          #- runner: ubuntu-latest
+          #  image: alpine320
           #- runner: ubuntu-latest
           #  image: ubuntu2604
           #- runner: ubuntu-latest
