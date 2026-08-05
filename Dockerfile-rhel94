@@ -3,11 +3,11 @@ FROM         redhat/ubi9:${RHEL_VERSION}
 # Recall ARG to have the RHEL_version in case we need it see:
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG          RHEL_VERSION
-ARG          REDHAT_USERNAME
-ARG          REDHAT_PASSWORD
 LABEL        org.opencontainers.image.authors="PcapPlusPlus <pcapplusplus@gmail.com>"
 CMD          bash
 
 # Install RHEL required system packages
 ADD scripts/rhel_install.sh /
-RUN /rhel_install.sh && rm /rhel_install.sh
+RUN --mount=type=secret,id=redhat_username,env=REDHAT_USERNAME \
+    --mount=type=secret,id=redhat_password,env=REDHAT_PASSWORD \
+    /rhel_install.sh && rm /rhel_install.sh

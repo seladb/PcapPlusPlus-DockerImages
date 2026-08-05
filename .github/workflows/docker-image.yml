@@ -12,10 +12,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - runner: ubuntu-26.04-arm
-            image: ubuntu2604-arm64
           - runner: ubuntu-latest
-            image: ubuntu2604-icpx
+            image: rhel94
+          #- runner: ubuntu-26.04-arm
+          #  image: ubuntu2604-arm64
+          #- runner: ubuntu-latest
+          #  image: ubuntu2604-icpx
           #- runner: ubuntu-latest
           #  image: alpine320
           #- runner: ubuntu-latest
@@ -47,8 +49,6 @@ jobs:
           #  image: fedora39
           #  runner: ubuntu-latest
           #  image: fedora40
-          #- runner: ubuntu-latest
-          #  image: rhel94
 
     steps:
       - name: Checkout code
@@ -57,8 +57,11 @@ jobs:
       - name: Build image
         run: |
           docker build . --file Dockerfile-${{ matrix.image }} --tag seladb/${{ matrix.image }}:latest \
-            --build-arg REDHAT_USERNAME=${{ secrets.REDHAT_USERNAME }} \
-            --build-arg REDHAT_PASSWORD=${{ secrets.REDHAT_PASSWORD }}
+            --secret id=redhat_username,env=REDHAT_USERNAME \
+            --secret id=redhat_password,env=REDHAT_PASSWORD
+        env:
+          REDHAT_USERNAME: ${{ secrets.REDHAT_USERNAME }}
+          REDHAT_PASSWORD: ${{ secrets.REDHAT_PASSWORD }}
 
       - name: Test PcapPlusPlus
         run: ./test-pcapplusplus.sh ${{ matrix.image }} ${{ matrix.test-flags }}
