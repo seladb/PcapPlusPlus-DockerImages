@@ -1,0 +1,21 @@
+FROM seladb/alpine320
+
+ARG CPPCHECK_VERSION=2.21.1
+
+RUN apk update && apk add clang17-extra-tools
+
+# Build and install cppcheck
+RUN <<EOF
+  git clone --depth 1 --branch $CPPCHECK_VERSION --single-branch https://github.com/cppcheck-opensource/cppcheck.git
+  cd cppcheck
+  mkdir build
+  cd build
+  cmake ..
+  cmake --build . -j
+  cmake --install .
+  cd ../../
+  rm -rf cppcheck
+  cppcheck --version
+EOF
+
+# RUN cppcheck --version
