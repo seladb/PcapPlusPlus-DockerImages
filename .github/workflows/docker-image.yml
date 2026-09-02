@@ -7,6 +7,8 @@ concurrency:
 
 jobs:
   build:
+    # Uncomment to disable this job if it is not needed
+    if: false
     runs-on: ${{ matrix.runner }}
     strategy:
       fail-fast: false
