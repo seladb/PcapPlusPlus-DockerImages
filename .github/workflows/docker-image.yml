@@ -78,9 +78,6 @@ jobs:
     # Uncomment to disable this job if it is not needed
     # if: false
     runs-on: ubuntu-latest
-    # TODO: Provide better solution for this, as cppcheck image is layered over the base alpine image.
-    #  If alpine image is updated, the cppcheck image might need a rebuild too.
-    # needs: build
     env:
       CPPCHECK_VERSION: 2.9.3
     steps:
