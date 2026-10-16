@@ -1,0 +1,31 @@
+ARG          ALPINE_VERSION=3.20
+FROM         alpine:${ALPINE_VERSION}
+
+ARG          ALPINE_VERSION
+LABEL        org.opencontainers.image.authors="PcapPlusPlus <pcapplusplus@gmail.com>"
+CMD          bash
+
+# Install alpine required system packages
+ADD scripts/alpine_install.sh /
+RUN /alpine_install.sh && rm /alpine_install.sh
+
+
+ARG CPPCHECK_VERSION=2.21.1
+
+RUN apk update && apk add clang17-extra-tools
+
+# Build and install cppcheck
+RUN <<EOF
+  git clone --depth 1 --branch $CPPCHECK_VERSION --single-branch https://github.com/cppcheck-opensource/cppcheck.git
+  cd cppcheck
+  mkdir build
+  cd build
+  cmake .. -DCMAKE_BUILD_TYPE=Release
+  cmake --build . -j
+  cmake --install .
+  cd ../../
+  rm -rf cppcheck
+  cppcheck --version
+EOF
+
+# RUN cppcheck --version

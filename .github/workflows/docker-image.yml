@@ -7,6 +7,8 @@ concurrency:
 
 jobs:
   build:
+    # Uncomment to disable this job if it is not needed
+    if: false
     runs-on: ${{ matrix.runner }}
     strategy:
       fail-fast: false
@@ -70,4 +72,28 @@ jobs:
         run: |
           echo ${{ secrets.DOCKER_PASS }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
           docker push seladb/${{ matrix.image }}:latest
+        if: ${{ !github.event.pull_request.head.repo.fork && github.ref == 'refs/heads/master' }}
+
+  build-cppcheck:
+    # Uncomment to disable this job if it is not needed
+    # if: false
+    runs-on: ubuntu-latest
+    env:
+      CPPCHECK_VERSION: 2.9.3
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build cppcheck image
+        run: |
+          docker build . --build-arg CPPCHECK_VERSION=${{ env.CPPCHECK_VERSION }} --file Dockerfile-alpine320-cppcheck --tag seladb/alpine320-cppcheck:${{ env.CPPCHECK_VERSION }}
+
+      - name: Test cppcheck
+        run: |
+          docker run --rm seladb/alpine320-cppcheck:${{ env.CPPCHECK_VERSION }} cppcheck --version
+
+      - name: Push to DockerHub
+        run: |
+          echo ${{ secrets.DOCKER_PASS }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
+          docker push seladb/alpine320-cppcheck:${{ env.CPPCHECK_VERSION }}
         if: ${{ !github.event.pull_request.head.repo.fork && github.ref == 'refs/heads/master' }}
