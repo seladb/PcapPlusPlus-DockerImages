@@ -1,4 +1,14 @@
-FROM seladb/alpine320
+ARG          ALPINE_VERSION=3.20
+FROM         alpine:${ALPINE_VERSION}
+
+ARG          ALPINE_VERSION
+LABEL        org.opencontainers.image.authors="PcapPlusPlus <pcapplusplus@gmail.com>"
+CMD          bash
+
+# Install alpine required system packages
+ADD scripts/alpine_install.sh /
+RUN /alpine_install.sh && rm /alpine_install.sh
+
 
 ARG CPPCHECK_VERSION=2.21.1
 
@@ -10,7 +20,7 @@ RUN <<EOF
   cd cppcheck
   mkdir build
   cd build
-  cmake ..
+  cmake .. -DCMAKE_BUILD_TYPE=Release
   cmake --build . -j
   cmake --install .
   cd ../../
